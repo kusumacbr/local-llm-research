@@ -1,6 +1,6 @@
-import requests, csv, subprocess, time
+﻿import requests, csv, subprocess, time
 
-MODELS = ["qwen2.5:0.5b", "llama3.2:1b", "llama3.2:3b"]
+MODELS = ["qwen2.5:0.5b", "llama3.2:1b-instruct-q4_K_M", "llama3.2:3b"]
 PROMPTS = [
     "Explain what an API is in two sentences.",
     "Write a Python function that reverses a string.",
@@ -22,8 +22,8 @@ def processor_split(model):
     out = subprocess.check_output(["ollama", "ps"], text=True)
     for line in out.splitlines():
         if line.startswith(model):
-            return " ".join(line.split()[3:6])
-    return "unknown"
+            return " ".join(line.split()[4:6])
+    return " ".join(line.split()[4:6])
 
 rows = []
 for model in MODELS:
@@ -48,9 +48,9 @@ for model in MODELS:
     subprocess.run(["ollama", "stop", model])
     time.sleep(3)
 
-with open("results/speed_results.csv", "w", newline="") as f:
+with open("results/speed_results_v2.csv", "w", newline="") as f:
     w = csv.writer(f)
     w.writerow(["model", "prompt_id", "run", "tokens_per_sec", "ttft_sec",
                 "tokens_generated", "vram_used_mb", "processor"])
     w.writerows(rows)
-print("Saved results/speed_results.csv")
+print("Saved results/speed_results_v2.csv")

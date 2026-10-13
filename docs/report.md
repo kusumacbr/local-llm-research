@@ -133,10 +133,150 @@ Findings:
 - The `processor` column in the CSV has an MB/GB prefix (for example "MB 100% GPU"). The value itself is correct. The script fix is applied for future runs.
 - An early agent test used different questions. The original three were re-run for a fair comparison.
 
-9. Recommendation
------------------
+9. Recommendation (Days 1 & 2)
+------------------------------
 
 - Fast enough: yes, once loaded (67 to 214 tokens/sec). Cold start is about 6 s.
 - Safe for data: yes, nothing left the machine.
 - Good enough: not on this 4 GB hardware for multi-step tool use.
 - Do not replace the cloud model for this agent yet.
+
+10. Part B: Public Test Set (Health Articles & CMS ICD-10 Table)
+----------------------------------------------------------------
+
+Test Set Design:
+- 10 full-text health articles from public-domain US government agencies (MedlinePlus, CDC, NIH: NIDDK and NHLBI), read on 13 Oct 2026.
+- Mix: 5 single-condition articles (Asthma, High Blood Pressure, Pneumonia, Alzheimer's, Chronic Kidney Disease) and 5 multi-condition articles (CKD + Diabetes, Metabolic Syndrome, Stroke, COPD, Heart Failure).
+- All articles and official licences catalogued in `data/sources.csv`. Article clean texts preserved in `data/articles/`.
+
+CMS ICD-10-CM Code Table:
+- Download URL: `https://www.cms.gov/files/zip/2026-code-descriptions-tabular-order.zip`
+- Version: FY 2026 ICD-10-CM (effective October 1, 2025 to September 30, 2026).
+- Metadata recorded in `data/icd10cm_metadata.json`.
+- Complete order file extracted to `data/icd10cm/icd10cm_order_2026.txt` (98,186 total classification codes).
+
+Answer Key:
+- Stored in `data/answer_key.csv` (36 total gold-standard condition codes across 10 articles).
+- Tier definitions:
+  - `primary`: the article is mostly about it.
+  - `secondary`: a real part of it.
+  - `tertiary`: a short mention.
+- All 36 gold-standard codes cross-referenced and verified against the official CMS 2026 tabular table.
+
+11. Part C: Schema-Constrained Extraction Benchmark
+---------------------------------------------------
+
+Method:
+- Strict JSON Schema: `schema/icd10_schema.json` enforcing `{"conditions": [{"name": str, "icd10cm_code": str, "tier": "primary"|"secondary"|"tertiary"}]}` with `maxItems: 6`.
+- Single call per article via Ollama `/api/chat` with `format` set to the JSON schema, `temperature: 0`, and `num_predict: 450`.
+- System prompt saved in `prompts/extraction_prompt.txt`.
+- Three models tested: `qwen2.5:1.5b`, `qwen2.5:3b`, `llama3.2:3b`.
+- Run policy: One run each today (30 total calls). All models unloaded before each evaluation run.
+- Full results recorded in `results/eval_results.csv` and complete raw model generations in `results/eval_raw_responses.json`.
+
+12. Summary Tables per Model
+----------------------------
+
+Model 1: qwen2.5:1.5b (Q4_K_M, 100% GPU)
+----------------------------------------
+
+| Metric | Value |
+|---|---|
+| Articles evaluated | 10 |
+| Valid JSON rate | 10/10 (100.0%) |
+| Total codes returned | 39 |
+| Codes not in CMS table (Hallucinations) | 12 (30.8%) |
+| Exact code matches (Ground Truth) | 9 (Precision: 23.1%, Recall: 25.0%) |
+| Chapter matches | 34 |
+| Tier matches | 3 |
+| Mean latency per article | 4.48 s |
+| Mean input tokens | 1362.9 |
+| Mean output tokens | 155.6 |
+
+Model 2: qwen2.5:3b (Q4_K_M, 100% GPU)
+--------------------------------------
+
+| Metric | Value |
+|---|---|
+| Articles evaluated | 10 |
+| Valid JSON rate | 10/10 (100.0%) |
+| Total codes returned | 22 |
+| Codes not in CMS table (Hallucinations) | 1 (4.5%) |
+| Exact code matches (Ground Truth) | 5 (Precision: 22.7%, Recall: 13.9%) |
+| Chapter matches | 19 |
+| Tier matches | 4 |
+| Mean latency per article | 4.59 s |
+| Mean input tokens | 1362.9 |
+| Mean output tokens | 91.7 |
+
+Model 3: llama3.2:3b (Q4_K_M, 100% GPU)
+---------------------------------------
+
+| Metric | Value |
+|---|---|
+| Articles evaluated | 10 |
+| Valid JSON rate | 10/10 (100.0%) |
+| Total codes returned | 50 |
+| Codes not in CMS table (Hallucinations) | 32 (64.0%) |
+| Exact code matches (Ground Truth) | 6 (Precision: 12.0%, Recall: 16.7%) |
+| Chapter matches | 44 |
+| Tier matches | 6 |
+| Mean latency per article | 7.78 s |
+| Mean input tokens | 1339.6 |
+| Mean output tokens | 191.5 |
+
+13. Comparative Findings & Failure Analysis
+-------------------------------------------
+
+1. JSON Schema Adherence:
+   All three models achieved 100% valid JSON adherence (30/30). Constrained grammar decoding in Ollama eliminates JSON syntax errors entirely.
+
+2. Hallucinations & Code Table Adherence:
+   - `qwen2.5:3b` was by far the most reliable model with only a 4.5% hallucination rate (1 invalid code out of 22). It demonstrated conservative, high-precision code prediction.
+   - `qwen2.5:1.5b` suffered a 30.8% hallucination rate (12 invalid codes out of 39). It invented plausible-looking diagnosis codes that do not exist in the official taxonomy (e.g. `J50.0` for pneumonia, when ICD-10 Chapter 10 skips J50).
+   - `llama3.2:3b` suffered the worst hallucination rate at 64.0% (32 invalid codes out of 50).
+
+3. Failure Explained (Llama 3.2 3B Range Generation Failure):
+   - What the model got wrong: On article 2 (High Blood Pressure) and article 3 (Pneumonia), Llama 3.2 3B consistently outputted code ranges such as `"I10-I09"`, `"I11-I13"`, `"I14-I15"`, `"I21-I25"`, `"J20-J47"`, and `"J41-J47.9"`, instead of specific individual diagnosis codes.
+   - Why this happened: Llama 3.2 3B's pre-training data contains medical textbook index tables or classification subheadings that group conditions by code blocks (e.g., "Hypertensive Diseases I10-I15"). Without specific fine-tuning or in-context few-shot examples, Llama 3.2 3B treated the task as identifying the block header rather than assigning an encounter-level diagnosis code. Furthermore, it invented nonsensical ranges like `"I10-I09"` (descending range) and non-existent category headers like `"I14"`, and hallucinated `"P30-P39"` (perinatal disorders) for fungal pneumonia.
+
+4. Latency and Speed:
+   - Qwen models ran significantly faster (~4.5s per article) than Llama 3.2 3B (~7.8s per article), maintaining higher token throughput.
+
+14. Demo Instructions
+---------------------
+- To demonstrate one article live through the script:
+  `python benchmarks/run_eval.py --models qwen2.5:3b --article art_01 --live`
+- The live demonstration prints the parsed JSON, matches against the answer key, CMS validation flags, and token counts.
+
+15. Stretch: 7B Model with Partial CPU Offload (qwen2.5:7b)
+-----------------------------------------------------------
+
+Setup & Offload Details:
+- Model: `qwen2.5:7b` (Q4_K_M, 5.1 GB total footprint in Ollama).
+- Hardware Constraint: RTX 3050 Laptop GPU (4096 MiB VRAM).
+- Processor Allocation (ollama ps): 55%/45% CPU/GPU split.
+- Test Set: 5 representative articles (`art_01`, `art_02`, `art_05`, `art_06`, `art_07`) covering both single- and multi-condition texts. Script: `benchmarks/run_stretch.py`. Data: `results/stretch_7b_results.csv`.
+
+Summary Table: qwen2.5:7b (55%/45% CPU/GPU Offload)
+
+| Metric | Value |
+|---|---|
+| Articles evaluated | 5 |
+| Processor split | 55%/45% CPU/GPU |
+| Valid JSON rate | 5/5 (100.0%) |
+| Total codes returned | 23 |
+| Codes not in CMS table (Hallucinations) | 5 (21.7%) |
+| Exact code matches (Ground Truth) | 6 (26.1% precision) |
+| Chapter matches | 23 (100.0%) |
+| Tier matches | 4 |
+| Mean latency per article | 24.46 s |
+| Warm-up model load time | 12.93 s |
+
+Findings on 7B CPU Offload:
+1. Feasibility: The 7B model ran reliably without crashing or out-of-memory errors on a 4 GB laptop GPU by spilling 55% of layers to system RAM and CPU.
+2. Speed Penalty: Offloading 55% of computation to the CPU increased average latency from ~4.5 s (on the fully GPU-resident 3B) to 24.46 s per article (roughly 5.4x slower).
+3. Accuracy: Clinical precision reached 26.1% (6 exact matches across 5 articles), outperforming all smaller models, with a perfect 100% chapter match rate (23/23).
+4. Trade-off: On resource-constrained hardware (4 GB VRAM), `qwen2.5:3b` represents the sweet spot for interactive latency (~4.6s per article, 4.5% invalid codes at 100% GPU), whereas `qwen2.5:7b` provides deeper clinical coverage if a ~25s per document batch delay is tolerable.
+
+

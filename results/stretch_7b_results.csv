@@ -1,0 +1,6 @@
+model,processor_split,article_id,title,condition_type,valid_json,num_codes_returned,codes_returned,num_invalid_codes,invalid_codes,num_exact_matches,exact_matches,num_chapter_matches,chapter_matches,num_tier_matches,tier_matches,time_taken_s,prompt_eval_count,eval_count
+qwen2.5:7b,55%/45% CPU/GPU,art_01,Asthma,single,yes,1,J45.9,0,,0,,1,J45.9,0,,8.12,1337,46
+qwen2.5:7b,55%/45% CPU/GPU,art_02,High Blood Pressure,single,yes,6,I10;I10;I10;I21;I61;I50,0,,3,I10;I10;I10,6,I10;I10;I10;I21;I61;I50,1,I10,27.79,925,224
+qwen2.5:7b,55%/45% CPU/GPU,art_05,What is Chronic Kidney Disease?,single,yes,6,N18.9;E10-E14;I10;I00-I99;N17.9;N17.0,2,E10-E14;I00-I99,2,N18.9;I10,6,N18.9;E10-E14;I10;I00-I99;N17.9;N17.0,2,N18.9;I10,32.64,2054,232
+qwen2.5:7b,55%/45% CPU/GPU,art_06,Chronic Kidney Disease and Diabetes,several,yes,4,N18.9;E11.9;E10.9;E11.9,0,,1,N18.9,4,N18.9;E11.9;E10.9;E11.9,1,N18.9,24.46,911,187
+qwen2.5:7b,55%/45% CPU/GPU,art_07,Metabolic Syndrome,several,yes,6,E78.2;I20-I25;E10-E14;I64;E66;E28.9,3,I20-I25;E10-E14;I64,0,,6,E78.2;I20-I25;E10-E14;I64;E66;E28.9,0,,29.27,1092,226

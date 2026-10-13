@@ -1,0 +1,10 @@
+{
+  "qwen2.5:3b": {
+    "art_01": {
+      "raw_response": "{\n  \"conditions\": [\n    {\n      \"name\": \"Asthma\",\n      \"icd10cm_code\": \"J45.9\",\n      \"tier\": \"primary\"\n    }\n  ]\n}",
+      "prompt_eval_count": 1337,
+      "eval_count": 46,
+      "wall_time_s": 10.063570737838745
+    }
+  }
+}

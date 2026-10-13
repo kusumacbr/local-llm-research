@@ -1,0 +1,10 @@
+{
+  "download_url": "https://www.cms.gov/files/zip/2026-code-descriptions-tabular-order.zip",
+  "version": "FY 2026 ICD-10-CM",
+  "effective_period": "October 1, 2025 - September 30, 2026",
+  "source_agency": "Centers for Medicare & Medicaid Services (CMS) / CDC NCHS",
+  "date_downloaded": "2026-10-13",
+  "archive_filename": "2026-code-descriptions-tabular-order.zip",
+  "primary_code_table_file": "icd10cm_order_2026.txt",
+  "total_records": 98186
+}

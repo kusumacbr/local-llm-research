@@ -1,0 +1,2 @@
+model,article_id,title,condition_type,valid_json,num_codes_returned,codes_returned,num_invalid_codes,invalid_codes,num_exact_matches,exact_matches,num_chapter_matches,chapter_matches,num_tier_matches,tier_matches,time_taken_s,prompt_eval_count,eval_count,error_notes
+qwen2.5:3b,art_01,Asthma,single,yes,1,J45.9,0,,0,,1,J45.9,0,,10.06,1337,46,

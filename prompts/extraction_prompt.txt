@@ -1,0 +1,24 @@
+You are an expert clinical medical coding assistant.
+Analyze the following health article and extract the medical conditions discussed.
+
+For each condition, specify:
+- "name": The clinical name of the medical condition.
+- "icd10cm_code": The official ICD-10-CM diagnosis code (for example: I10, E11.9, J45.909, G30.9, N18.9).
+- "tier": The importance tier according to the article's coverage:
+  - "primary": the article is mostly about it.
+  - "secondary": a real part of it.
+  - "tertiary": a short mention.
+
+Return ONLY a JSON object strictly adhering to the schema:
+{
+  "conditions": [
+    {
+      "name": "Condition Name",
+      "icd10cm_code": "ICD-10-CM Code",
+      "tier": "primary" | "secondary" | "tertiary"
+    }
+  ]
+}
+
+Article text:
+{article_text}
