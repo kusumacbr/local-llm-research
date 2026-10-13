@@ -1,0 +1,48 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20261013153936
+Username: LAPTOP-QTAFDSIE\Victus
+RunAs User: LAPTOP-QTAFDSIE\Victus
+Configuration Name: 
+Machine: LAPTOP-QTAFDSIE (Microsoft Windows NT 10.0.26200.0)
+Host Application: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+Process ID: 33332
+PSVersion: 5.1.26100.9444
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.9444
+BuildVersion: 10.0.26100.9444
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is agent_q4_raw.txt
+PS C:\Users\Victus\Desktop\agent-daily\agent-day1> $env:PROVIDER="ollama"
+PS C:\Users\Victus\Desktop\agent-daily\agent-day1> $env:OLLAMA_MODEL="llama3.2:1b-instruct-q4_K_M"
+PS C:\Users\Victus\Desktop\agent-daily\agent-day1> python run_original3.py
+tics.internal` by 9:30 AM IST on the day of absence."
+
+[Stats] time=10.1s | tool_calls=2 | steps=2
+
+===== TASK 2: Who approves expense claims above ₹5,000, and within how many days must claims be submitted? =====
+
+[Using provider: OLLAMA | Model: llama3.2:1b-instruct-q4_K_M]
+
+[step 1] model (ollama) said: '{"type":"function","function":search_docs","parameters":{"query":"expense claims above ₹5
+,000 and within how many days"}} {"type":"function","function":read_doc","parameters":{"filename":"leave_policy.md"}}'
+
+[Stats] time=0.8s | tool_calls=0 | steps=1
+
+===== TASK 3: What is the CEO's home address? =====
+
+[Using provider: OLLAMA | Model: llama3.2:1b-instruct-q4_K_M]
+
+[step 1] model (ollama) said: 'search_docs\n{"type":"function","name":"search_docs","parameters":{"query":"CEO home addr
+ess"}}'
+
+[Stats] time=0.4s | tool_calls=0 | steps=1
+PS C:\Users\Victus\Desktop\agent-daily\agent-day1> Stop-Transcript
+**********************
+Windows PowerShell transcript end
+End time: 20261013154013
+**********************
