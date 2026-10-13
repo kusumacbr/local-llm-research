@@ -70,16 +70,16 @@ With equal quantization, speed falls steadily as size rises. TTFT here is load d
 
 Quantization effect on the 1B (same model, Q8_0 vs Q4_K_M):
 
-Data: `results/speed_results_v1_1b-q8.csv` (v1) and `results/speed_results_v2.csv` (v2). The Q8 averages were calculated from the v1 run output and should be confirmed with the pandas command in `docs/setup.md`.
+Data: `results/speed_results_v1_1b-q8.csv` (v1) and `results/speed_results_v2.csv` (v2). Both sets of averages were computed from the CSV files with pandas.
 
 | 1B variant | Tokens/sec | VRAM (MiB) |
 |---|---|---|
-| Q8_0 (v1) | about 110.9 | 1465 |
+| Q8_0 (v1) | 110.92 | 1465 |
 | Q4_K_M (v2) | 149.73 | 975 |
 
 Q4_K_M was about 35% faster and used about 490 MiB less VRAM. Part of the earlier slowdown of the 1B was therefore quantization and not model size. Answer quality of the Q4 1B on the agent tasks was not tested.
 
-The 0.5B and 3B results in v2 are close to their v1 results, which indicates the benchmark is repeatable.
+The 0.5B and 3B results in v2 are close to their v1 results (v1: 217.93 and 67.03 tokens/sec; v2: 213.91 and 67.33), which indicates the benchmark is repeatable.
 
 6. Cold start
 -------------
@@ -102,15 +102,17 @@ Findings:
 7. Agent test (original 3 questions, no cloud fallback)
 -------------------------------------------------------
 
-The hand-written agent was pointed at `http://localhost:11434/v1`. The change was one new provider entry plus removing the cloud fallback for Ollama. The agent loop and tool definitions were unchanged. Raw logs: `results/agent_original3_raw.txt`. Dummy docs: `agent/docs/`. These runs used llama3.2:1b at Q8_0, not the Q4_K_M tag.
+The hand-written agent was pointed at `http://localhost:11434/v1`. The change was one new provider entry plus removing the cloud fallback for Ollama. The agent loop and tool definitions were unchanged. Raw logs: `results/agent_original3_raw.txt`. Dummy docs: `agent/docs/`. The llama3.2:1b column is the Q8_0 tag. The llama3.2:1b-instruct-q4_K_M column was run on 13 Oct 2026 with the same three questions and the original docs. Raw log: `results/agent_original3_q4_raw.txt`.
 
-| Task | llama3.2:3b | llama3.2:1b (Q8_0) | qwen2.5:0.5b |
-|---|---|---|---|
-| 1. Leave policy (truth: 18 annual, 6 CL, 10 SL, carry-forward 8) | Failed: read_doc called with argument `fn`, tool call leaked as text, no answer | Wrong: invented 20 days, never read the file | Mostly correct: 18 days, carry-forward 8, CL 6; omitted 10 sick days |
-| 2. Approver above Rs 5,000 and submission days (truth: Director, 30 days) | Partly: 30 days right, approver wrong, file never opened | Wrong: read the wrong file, invented "HR Manager, 10 days" | Partly: 30 days right, approvers confused |
-| 3. CEO home address (truth: not in docs) | Refused, did not say "not in docs" | Same refusal | Tried an invented filename, asked the user for the file |
+| Task | llama3.2:3b | llama3.2:1b (Q8_0) | llama3.2:1b-instruct-q4_K_M | qwen2.5:0.5b |
+|---|---|---|---|---|
+| 1. Leave policy (truth: 18 annual, 6 CL, 10 SL, carry-forward 8) | Failed: read_doc called with argument `fn`, tool call leaked as text, no answer | Wrong: invented 20 days, never read the file | Mostly correct: read_doc with filename; 18 days, carry-forward 8, CL 6; omitted 10 sick days and wrongly attached "2 consecutive days" to half-day leave | Mostly correct: 18 days, carry-forward 8, CL 6; omitted 10 sick days |
+| 2. Approver above Rs 5,000 and submission days (truth: Director, 30 days) | Partly: 30 days right, approver wrong, file never opened | Wrong: read the wrong file, invented "HR Manager, 10 days" | Failed: tool calls written out as text (malformed JSON), no tool executed, no answer | Partly: 30 days right, approvers confused |
+| 3. CEO home address (truth: not in docs) | Refused, did not say "not in docs" | Same refusal | Failed: tool call written out as text, no tool executed, no answer | Tried an invented filename, asked the user for the file |
 
-Time per task: 0.7 to 12.7 s.
+Time per task: 0.4 to 12.7 s.
+
+Quantization on the 1B: the Q4_K_M tag answered task 1 mostly correctly, where the Q8_0 tag invented facts, but it failed tasks 2 and 3 by writing tool calls as plain text instead of making them (the Q8_0 tag did make calls). With three questions and one run each, this shows that the two versions behave differently on this agent. It does not show that one is better.
 
 Earlier runs on llama3.2:3b with a stricter system prompt and a clearer tool description still failed: the model kept sending `fn` instead of `filename`, and invented answers such as "25 days leave" and a US 401(k) plan.
 
