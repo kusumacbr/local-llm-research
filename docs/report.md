@@ -1,5 +1,5 @@
-Local LLM Research Report (Day 2 update, 13 Oct 2026)
-=====================================================
+Local LLM Research Report (Day 4 Final Results, 14 Oct 2026)
+=============================================================
 
 Question: Are local models good enough, fast enough and safe enough to use in our agents? Dummy data only. Ollama listens on localhost only.
 
@@ -141,142 +141,81 @@ Findings:
 - Good enough: not on this 4 GB hardware for multi-step tool use.
 - Do not replace the cloud model for this agent yet.
 
-10. Part B: Public Test Set (Health Articles & CMS ICD-10 Table)
-----------------------------------------------------------------
-
-Test Set Design:
-- 10 full-text health articles from public-domain US government agencies (MedlinePlus, CDC, NIH: NIDDK and NHLBI), read on 13 Oct 2026.
-- Mix: 5 single-condition articles (Asthma, High Blood Pressure, Pneumonia, Alzheimer's, Chronic Kidney Disease) and 5 multi-condition articles (CKD + Diabetes, Metabolic Syndrome, Stroke, COPD, Heart Failure).
-- All articles and official licences catalogued in `data/sources.csv`. Article clean texts preserved in `data/articles/`.
-
-CMS ICD-10-CM Code Table:
-- Download URL: `https://www.cms.gov/files/zip/2026-code-descriptions-tabular-order.zip`
-- Version: FY 2026 ICD-10-CM (effective October 1, 2025 to September 30, 2026).
-- Metadata recorded in `data/icd10cm_metadata.json`.
-- Complete order file extracted to `data/icd10cm/icd10cm_order_2026.txt` (98,186 total classification codes).
-
-Answer Key:
-- Stored in `data/answer_key.csv` (36 total gold-standard condition codes across 10 articles).
-- Tier definitions:
-  - `primary`: the article is mostly about it.
-  - `secondary`: a real part of it.
-  - `tertiary`: a short mention.
-- All 36 gold-standard codes cross-referenced and verified against the official CMS 2026 tabular table.
-
-11. Part C: Schema-Constrained Extraction Benchmark
----------------------------------------------------
-
-Method:
-- Strict JSON Schema: `schema/icd10_schema.json` enforcing `{"conditions": [{"name": str, "icd10cm_code": str, "tier": "primary"|"secondary"|"tertiary"}]}` with `maxItems: 6`.
-- Single call per article via Ollama `/api/chat` with `format` set to the JSON schema, `temperature: 0`, and `num_predict: 450`.
-- System prompt saved in `prompts/extraction_prompt.txt`.
-- Three models tested: `qwen2.5:1.5b`, `qwen2.5:3b`, `llama3.2:3b`.
-- Run policy: One run each today (30 total calls). All models unloaded before each evaluation run.
-- Full results recorded in `results/eval_results.csv` and complete raw model generations in `results/eval_raw_responses.json`.
-
-12. Summary Tables per Model
-----------------------------
-
-Model 1: qwen2.5:1.5b (Q4_K_M, 100% GPU)
-----------------------------------------
-
-| Metric | Value |
-|---|---|
-| Articles evaluated | 10 |
-| Valid JSON rate | 10/10 (100.0%) |
-| Total codes returned | 39 |
-| Codes not in CMS table (Hallucinations) | 12 (30.8%) |
-| Exact code matches (Ground Truth) | 9 (Precision: 23.1%, Recall: 25.0%) |
-| Chapter matches | 34 |
-| Tier matches | 3 |
-| Mean latency per article | 4.48 s |
-| Mean input tokens | 1362.9 |
-| Mean output tokens | 155.6 |
-
-Model 2: qwen2.5:3b (Q4_K_M, 100% GPU)
+10. ICD-10-CM classification benchmark
 --------------------------------------
 
-| Metric | Value |
-|---|---|
-| Articles evaluated | 10 |
-| Valid JSON rate | 10/10 (100.0%) |
-| Total codes returned | 22 |
-| Codes not in CMS table (Hallucinations) | 1 (4.5%) |
-| Exact code matches (Ground Truth) | 5 (Precision: 22.7%, Recall: 13.9%) |
-| Chapter matches | 19 |
-| Tier matches | 4 |
-| Mean latency per article | 4.59 s |
-| Mean input tokens | 1362.9 |
-| Mean output tokens | 91.7 |
+Summary
+-------
+No: local models on this 4 GB laptop GPU cannot reliably perform clinical ICD-10-CM coding, yielding low exact precision (4.5% to 16.7%) and low recall (2.8% to 13.9%).
+On speed, models fully resident on GPU (1.5B and 3B) process an article in 4.4 to 4.6 seconds (~780 to 820 articles/hour), while the 7B model with 55% CPU offload requires 25.4 seconds (~142 articles/hour).
+Structured decoding enforces 100% valid JSON adherence across all models, but medical domain validity remains poor with 13.6% to 75.0% invalid or hallucinated codes.
+Llama 3.2 3B failed decisively by outputting non-billable range blocks (75% invalid codes), whereas Qwen models predicted discrete encounter-level codes.
+Recommendation: do not deploy local small models as autonomous medical coders on edge devices; they may serve only as coarse chapter triage filters or draft suggestion tools.
 
-Model 3: llama3.2:3b (Q4_K_M, 100% GPU)
----------------------------------------
+Setup
+-----
+- Hardware: NVIDIA GeForce RTX 3050 Laptop GPU (4096 MiB VRAM), 12th Gen Intel Core i7-12650H (16 logical processors), 16 GB DDR4 RAM, Windows 11 Home (Build 26200).
+- Ollama version: 0.40.4.
+- Models and quantisation: `qwen2.5:1.5b` (Q4_K_M, 100% GPU), `qwen2.5:3b` (Q4_K_M, 100% GPU), `llama3.2:3b` (Q4_K_M, 100% GPU), `qwen2.5:7b` (Q4_K_M, 55%/45% CPU/GPU split).
+- Generation settings: Temperature 0, `num_predict: 450`, single run per model on each article. All models stopped before each model run via `ollama stop`.
+- Schema: Strict JSON schema (`schema/icd10_schema.json`) requiring `{"conditions": [{"name": str, "icd10cm_code": str, "tier": "primary"|"secondary"|"tertiary"}]}` with `maxItems: 6`.
+- Prompt file: `prompts/extraction_prompt_v2.txt` (clinical coding prompt with out-of-key example codes: M54.50, K21.9, R51.9, L20.9, H10.9).
 
-| Metric | Value |
-|---|---|
-| Articles evaluated | 10 |
-| Valid JSON rate | 10/10 (100.0%) |
-| Total codes returned | 50 |
-| Codes not in CMS table (Hallucinations) | 32 (64.0%) |
-| Exact code matches (Ground Truth) | 6 (Precision: 12.0%, Recall: 16.7%) |
-| Chapter matches | 44 |
-| Tier matches | 6 |
-| Mean latency per article | 7.78 s |
-| Mean input tokens | 1339.6 |
-| Mean output tokens | 191.5 |
+Test set
+--------
+- 10 full-text health articles from public domain US government sources (NIH: NIDDK and NHLBI, MedlinePlus, CDC), catalogued with URLs and public-domain licences in data/sources.csv.
+- Fetching and text curation: Articles were fetched via automated script (scripts/fetch_articles.py) and cleaned to remove web scraping noise (such as broken intra-sentence linebreaks from inline HTML anchor tags, website navigation menus, and dangling links), producing contiguous, readable, and clinically understandable text for model evaluation.
+- Article composition: 5 single-condition articles (art_01 to art_05: Asthma, Hypertension, Pneumonia, Alzheimer's, Chronic Kidney Disease) and 5 multi-condition articles (art_06 to art_10: CKD + Diabetes, Metabolic Syndrome, Stroke, COPD, Heart Failure).
+- Code table version: CMS FY 2026 ICD-10-CM Tabular Order File (icd10cm_order_2026.txt, effective Oct 1, 2025 to Sept 30, 2026; 98,186 valid classification codes).
+- Answer key: Stored in data/answer_key.csv, containing 36 expected condition rows across the 10 articles, with clinical rationale and assigned importance tiers (primary, secondary, tertiary).
+- Working draft disclaimer: The answer key was curated by review against the CMS 2026 tabular list and serves as an engineering benchmark draft, not a certified clinical ground truth.
 
-13. Comparative Findings & Failure Analysis
--------------------------------------------
+Results table
+-------------
 
-1. JSON Schema Adherence:
-   All three models achieved 100% valid JSON adherence (30/30). Constrained grammar decoding in Ollama eliminates JSON syntax errors entirely.
+| Model | Valid JSON | Codes Returned (Unique) | Invalid Codes | Exact Precision / Recall / F1 | Category Match | Chapter Match | Tier Match | Seconds / Article | Tokens / Article (in / out) |
+|---|---|---|---|---|---|---|---|---|---|
+| qwen2.5:1.5b | 10/10 (100%) | 18 | 4 (22.2%) | P=16.7% / R=8.3% / F1=11.1% | 6 | 13 | 1 | 4.38 s | 1363.9 / 156.4 |
+| qwen2.5:3b | 10/10 (100%) | 22 | 3 (13.6%) | P=4.5% / R=2.8% / F1=3.4% | 6 | 19 | 1 | 4.58 s | 1363.9 / 91.9 |
+| llama3.2:3b | 10/10 (100%) | 44 | 33 (75.0%) | P=4.5% / R=5.6% / F1=5.0% | 4 | 11 | 2 | 9.35 s | 1341.6 / 193.4 |
+| qwen2.5:7b | 10/10 (100%) | 41 | 10 (24.4%) | P=12.2% / R=13.9% / F1=13.0% | 11 | 33 | 4 | 25.37 s | 1363.9 / 185.9 |
+| gemini-flash-lite-latest (Cloud Reference) | 10/10 (100%) | 114 | 0 (0.0%) | P=25.4% / R=80.6% / F1=38.7% | 32 | 73 | 24 | 5.71 s | 1368.9 / 524.2 |
 
-2. Hallucinations & Code Table Adherence:
-   - `qwen2.5:3b` was by far the most reliable model with only a 4.5% hallucination rate (1 invalid code out of 22). It demonstrated conservative, high-precision code prediction.
-   - `qwen2.5:1.5b` suffered a 30.8% hallucination rate (12 invalid codes out of 39). It invented plausible-looking diagnosis codes that do not exist in the official taxonomy (e.g. `J50.0` for pneumonia, when ICD-10 Chapter 10 skips J50).
-   - `llama3.2:3b` suffered the worst hallucination rate at 64.0% (32 invalid codes out of 50).
+Cloud Reference Comparison and Answer Key Disagreements: gemini-flash-lite-latest had 0 invalid codes across 114 extracted conditions (100% taxonomy validity) and achieved 80.6% recall against the 36 gold-standard codes (29 exact matches). Disagreements with the draft answer key stemmed primarily from: (1) higher clinical specificity (e.g., coding Heart Failure I50.9 and Heart Attack I21.9 instead of unspecified heart disease I51.9 on article 2), (2) unbundled coding rather than combination codes (extracting E11.9 and N18.9 separately instead of combination code E11.22 on article 6), and (3) broader secondary extraction of underlying risk factors (e.g. COVID-19, sepsis, and sickle cell disease in pneumonia). Complete breakdown is preserved in results/gemini_disagreements.md.
 
-3. Failure Explained (Llama 3.2 3B Range Generation Failure):
-   - What the model got wrong: On article 2 (High Blood Pressure) and article 3 (Pneumonia), Llama 3.2 3B consistently outputted code ranges such as `"I10-I09"`, `"I11-I13"`, `"I14-I15"`, `"I21-I25"`, `"J20-J47"`, and `"J41-J47.9"`, instead of specific individual diagnosis codes.
-   - Why this happened: Llama 3.2 3B's pre-training data contains medical textbook index tables or classification subheadings that group conditions by code blocks (e.g., "Hypertensive Diseases I10-I15"). Without specific fine-tuning or in-context few-shot examples, Llama 3.2 3B treated the task as identifying the block header rather than assigning an encounter-level diagnosis code. Furthermore, it invented nonsensical ranges like `"I10-I09"` (descending range) and non-existent category headers like `"I14"`, and hallucinated `"P30-P39"` (perinatal disorders) for fungal pneumonia.
+Old vs new numbers
+------------------
+1. Duplicate codes fix: Duplicate code emissions (e.g. `I10;I10;I10`) now count as 1 code and 1 hit; on unique codes, Qwen 1.5B precision dropped from 23.1% to 16.7%, and 7B precision dropped from 26.1% to 12.2%.
+2. Recall and F1 fix: Previously uncalculated, exact recall is now tracked against all 36 gold-standard codes, revealing that small models achieve only 2.8% to 13.9% recall (F1 of 3.4% to 13.0%).
+3. 7B evaluation fix: `qwen2.5:7b` was previously tested on only 5 articles; it is now evaluated on all 10 articles under identical conditions, allowing a direct head-to-head comparison.
+4. Prompt example contamination fix: Replaced the 5 answer-key prompt examples (`I10, E11.9, J45.909, G30.9, N18.9`, which covered 15 of 36 key rows) with out-of-key codes (`M54.50, K21.9, R51.9, L20.9, H10.9`), preventing artificial prompt memorization.
+5. Range string and category match fix: Hyphenated ranges (`I10-I15`) are now strictly categorized as invalid with zero credit, and a 3-character category match column is added alongside exact match to measure partial taxonomic alignment.
 
-4. Latency and Speed:
-   - Qwen models ran significantly faster (~4.5s per article) than Llama 3.2 3B (~7.8s per article), maintaining higher token throughput.
+Failure examples
+----------------
+1. Range string: `llama3.2:3b` on article 2 (High Blood Pressure) returned `"I10-I15"`, `"I21-I25"`, and `"I63-I66"` (expected discrete code `I10` for Essential hypertension). The model outputted block headings instead of encounter-level diagnosis codes.
+2. Invented code: `qwen2.5:1.5b` on article 3 (Pneumonia) generated `"J50.0"` (expected `J18.9` for Pneumonia, unspecified organism). ICD-10-CM Chapter 10 skips from J47 to J60; code `J50.0` does not exist in the official CMS 2026 code table.
+3. Wrong tier: `qwen2.5:1.5b` on article 8 (Stroke) generated `I10` (Hypertension) with `tier: "primary"` (expected `tier: "secondary"`, where `I63.9` Cerebral infarction is primary). The model captured the comorbidity but misjudged its clinical centrality in the article.
 
-14. Demo Instructions
----------------------
-- To demonstrate one article live through the script:
-  `python benchmarks/run_eval.py --models qwen2.5:3b --article art_01 --live`
-- The live demonstration prints the parsed JSON, matches against the answer key, CMS validation flags, and token counts.
+Throughput
+----------
+Throughput on this GPU (NVIDIA RTX 3050 Laptop, 4 GB VRAM) computed as `3600 / seconds_per_article`:
+- `qwen2.5:1.5b`: 4.38 s/article -> 822 articles per hour (100% GPU)
+- `qwen2.5:3b`: 4.58 s/article -> 787 articles per hour (100% GPU)
+- `llama3.2:3b`: 9.35 s/article -> 385 articles per hour (100% GPU)
+- `qwen2.5:7b`: 25.37 s/article -> 142 articles per hour (55%/45% CPU/GPU offload)
 
-15. Stretch: 7B Model with Partial CPU Offload (qwen2.5:7b)
------------------------------------------------------------
+Limits
+------
+- 10 articles: A small evaluation set focusing on consumer health education articles rather than raw, noisy clinical electronic health records.
+- One run each: Evaluations used greedy decoding (temperature 0); non-deterministic run-to-run variance was not measured.
+- Draft answer key: Curation relied on single-reviewer clinical matching against the CMS tabular order file rather than dual certified professional medical coder adjudication.
+- 4 GB GPU: Limited VRAM forced `qwen2.5:7b` to spill 55% of its weights to CPU and system RAM, causing a 5.8x throughput drop relative to `qwen2.5:1.5b`.
 
-Setup & Offload Details:
-- Model: `qwen2.5:7b` (Q4_K_M, 5.1 GB total footprint in Ollama).
-- Hardware Constraint: RTX 3050 Laptop GPU (4096 MiB VRAM).
-- Processor Allocation (ollama ps): 55%/45% CPU/GPU split.
-- Test Set: 5 representative articles (`art_01`, `art_02`, `art_05`, `art_06`, `art_07`) covering both single- and multi-condition texts. Script: `benchmarks/run_stretch.py`. Data: `results/stretch_7b_results.csv`.
-
-Summary Table: qwen2.5:7b (55%/45% CPU/GPU Offload)
-
-| Metric | Value |
-|---|---|
-| Articles evaluated | 5 |
-| Processor split | 55%/45% CPU/GPU |
-| Valid JSON rate | 5/5 (100.0%) |
-| Total codes returned | 23 |
-| Codes not in CMS table (Hallucinations) | 5 (21.7%) |
-| Exact code matches (Ground Truth) | 6 (26.1% precision) |
-| Chapter matches | 23 (100.0%) |
-| Tier matches | 4 |
-| Mean latency per article | 24.46 s |
-| Warm-up model load time | 12.93 s |
-
-Findings on 7B CPU Offload:
-1. Feasibility: The 7B model ran reliably without crashing or out-of-memory errors on a 4 GB laptop GPU by spilling 55% of layers to system RAM and CPU.
-2. Speed Penalty: Offloading 55% of computation to the CPU increased average latency from ~4.5 s (on the fully GPU-resident 3B) to 24.46 s per article (roughly 5.4x slower).
-3. Accuracy: Clinical precision reached 26.1% (6 exact matches across 5 articles), outperforming all smaller models, with a perfect 100% chapter match rate (23/23).
-4. Trade-off: On resource-constrained hardware (4 GB VRAM), `qwen2.5:3b` represents the sweet spot for interactive latency (~4.6s per article, 4.5% invalid codes at 100% GPU), whereas `qwen2.5:7b` provides deeper clinical coverage if a ~25s per document batch delay is tolerable.
+Next steps
+----------
+- Implement Retrieval-Augmented Generation (RAG) against the 98,186 CMS code descriptions so models retrieve top-k candidate codes instead of hallucinating from parametric memory.
+- Add negative prompt constraints and few-shot formatting examples explicitly forbidding hyphenated code ranges.
+- Evaluate domain-adapted medical language models (e.g. BioMistral or MedLlama) on larger GPU hardware (8 GB to 16 GB VRAM) to test whether clinical pre-training bridges the accuracy gap.
 
 

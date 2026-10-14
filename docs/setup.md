@@ -1,120 +1,93 @@
-Setup Guide
-===========
+Setup and Reproduction Guide
+=============================
 
-Tested on 13 Oct 2026: Windows 11 Home Single Language (Build 26200), Intel i7-12650H, 16 GB RAM, NVIDIA RTX 3050 Laptop GPU (4 GB VRAM), NVIDIA driver 592.82. Dummy data only.
+Tested on 14 Oct 2026: Windows 11 Home Single Language (Build 26200), Intel Core i7-12650H, 16 GB RAM, NVIDIA GeForce RTX 3050 Laptop GPU (4 GB VRAM), NVIDIA driver 592.82, Ollama 0.40.4.
 
-1. Install
-----------
+1. Prerequisites and Installation
+---------------------------------
 
-1. Install Ollama for Windows from ollama.com/download/windows.
-2. Check the version with `ollama --version` (tested: 0.40.3).
-3. Keep Ollama on localhost, which is the default. Do not set OLLAMA_HOST.
-4. Install Python (tested: 3.14.3), then install the packages:
+A. Install Ollama:
+1. Download and run the Windows installer from ollama.com/download/windows
+2. Verify installation:
+   ollama --version
+   (Tested with Ollama version 0.40.4)
+3. Keep Ollama bound to localhost (default). Do not expose OLLAMA_HOST externally.
 
-```
+B. Python Environment:
+Install Python 3.10+ (tested on Python 3.14.3) and dependencies:
 pip install requests pandas openai python-dotenv
-```
+(Or use pip install -r requirements.txt)
 
-2. Pull the models
-------------------
-
-```
-ollama pull qwen2.5:0.5b
-ollama pull llama3.2:1b-instruct-q4_K_M
-ollama pull llama3.2:3b
-```
-
-Optional extra, used only in the v1 comparison: `ollama pull llama3.2:1b` (Q8_0).
-
-Check the quantization and the licence of each model:
-
-```
-ollama show MODEL_NAME
-ollama show MODEL_NAME --license
-```
-
-3. Check GPU use
-----------------
-
-```
-ollama run MODEL_NAME
-```
-
-Inside the chat, set the context before the first message, because the setting only applies when the model loads:
-
-```
-/set parameter num_ctx 2048
-hi
-```
-
-In a second terminal, run `ollama ps`. The PROCESSOR column must show 100% GPU and CONTEXT must show 2048. Then type `/bye` and run `ollama stop MODEL_NAME`.
-
-Note: llama3.2:3b at a context of 4096 showed 20%/80% CPU/GPU on this 4 GB card.
-
-4. Speed benchmark (warm)
--------------------------
-
-Before running: `ollama ps` is empty, `nvidia-smi` shows about 0 MiB, and other GPU apps are closed.
-
-```
-python benchmarks\speed_benchmark.py
-```
-
-Settings: 5 fixed prompts x 3 runs per model, seed 42, temperature 0, num_ctx 2048, warm-up excluded. The script saves its results to the CSV file named in the script. The current results are in `results/speed_results_v2.csv` (3 models x 15 runs = 45 rows). The earlier run with the Q8_0 1B is in `results/speed_results_v1_1b-q8.csv`.
-
-Print the averages:
-
-```
-python -c "import pandas as pd; df=pd.read_csv('results/speed_results_v2.csv'); print(df.groupby('model')[['tokens_per_sec','ttft_sec','vram_used_mb']].mean().round(2))"
-```
-
-Warning: running the script again overwrites the CSV file named in it. Copy the old results first.
-
-5. Cold start benchmark
+2. Pull Required Models
 -----------------------
 
-```
-python benchmarks\cold_start.py
-```
+Pull the four evaluated local models:
+ollama pull qwen2.5:1.5b
+ollama pull qwen2.5:3b
+ollama pull llama3.2:3b
+ollama pull qwen2.5:7b
 
-For each model the script runs `ollama stop`, waits until the model is unloaded, then times the first streamed token. 3 runs per model. Output: `results/cold_start.csv`. Do not use the PC for other work while it runs.
+Check model details, quantization (Q4_K_M), and licences:
+ollama show qwen2.5:1.5b
+ollama show qwen2.5:3b
+ollama show llama3.2:3b
+ollama show qwen2.5:7b
 
-```
-python -c "import pandas as pd; df=pd.read_csv('results/cold_start.csv'); print(df.groupby('model')[['cold_first_token_s','load_s']].mean().round(2))"
-```
+3. CMS ICD-10-CM Code Table and Public Health Articles
+------------------------------------------------------
 
-6. Agent test
--------------
+The clinical code validation table originates from the official Centers for Medicare and Medicaid Services (CMS):
+- Source: CMS 2026 ICD-10-CM Code Descriptions in Tabular Order (FY 2026, effective Oct 1, 2025 to Sept 30, 2026)
+- URL: https://www.cms.gov/files/zip/2026-code-descriptions-tabular-order.zip
+- Output File: data/icd10cm/icd10cm_order_2026.txt (98,186 total valid diagnosis codes)
 
-The agent reads its documents from `agent/docs` (dummy Acme Robotics files only). It calls Ollama at http://localhost:11434/v1. When the provider is ollama there is no cloud fallback.
+To automatically download, unpack, and verify the CMS table and fetch the 10 public health articles:
+python scripts/fetch_articles.py
 
-```
+The script fetches the articles from official public-domain sources (MedlinePlus, CDC, NIH) and cleans them by removing web scraping noise, broken HTML anchor linebreaks, and navigation clutter to ensure clean, readable, and understandable text in data/articles/art_01.txt through art_10.txt.
+
+4. How to Run the Benchmark and Scorer
+--------------------------------------
+
+The primary benchmark script is benchmarks/run_eval.py. It automatically executes built-in assertion checks for duplicate handling, range string exclusion, and category matching before running model evaluations.
+
+A. Full Evaluation (All 4 Models on All 10 Articles):
+To run the full evaluation across qwen2.5:1.5b, qwen2.5:3b, llama3.2:3b, and qwen2.5:7b:
+python benchmarks/run_eval.py
+
+Outputs generated:
+- results/eval_results.csv: Per-article performance metrics (40 rows).
+- results/eval_raw_responses.json: Full untruncated JSON responses and token statistics for all 40 calls.
+
+B. Live Demonstration Mode (2 Articles):
+For interactive demonstration or grading:
+python benchmarks/run_eval.py --models qwen2.5:3b --articles art_01 art_02 --live
+
+Prints:
+- Raw JSON emitted by the model
+- Expected gold-standard codes and tiers
+- Unique codes parsed
+- Exact matches (e.g. I10)
+- Category matches (first 3 characters, e.g. E11 vs E11.9)
+- Chapter matches
+- Invalid / hallucinated codes (and hyphenated range strings)
+- Wall-clock latency and token throughput
+
+C. Run on a Specific Model or Article:
+python benchmarks/run_eval.py --models qwen2.5:7b --article art_05 --live
+
+5. Other Benchmarks (Speed and Agent Test)
+------------------------------------------
+
+Warm Inference Speed Benchmark:
+python benchmarks/speed_benchmark.py
+Settings: 5 prompts x 3 runs, seed 42, temperature 0, num_ctx 2048. Results in results/speed_results_v2.csv.
+
+Cold Start Latency Benchmark:
+python benchmarks/cold_start.py
+Measures time-to-first-token on cold load after ollama stop. Results in results/cold_start.csv.
+
+Multi-Step Agent Test:
 $env:PROVIDER="ollama"
 $env:OLLAMA_MODEL="llama3.2:3b"
-python agent\run_original3.py
-```
-
-Repeat with `llama3.2:1b` and `qwen2.5:0.5b` by changing OLLAMA_MODEL. The script prints each step and writes the answers to a results file in the current folder. A .env file is not needed for local runs. Never commit a .env file or API keys.
-
-Note: the agent test runs used the Q8_0 tag `llama3.2:1b`, and the docs in `agent/docs` were reformatted to plain text afterwards (content unchanged).
-
-7. Versions
------------
-
-| Item | Version |
-|---|---|
-| Ollama | 0.40.3 |
-| Python | 3.14.3 |
-| requests | 2.32.5 |
-| pandas | 3.0.2 |
-| NVIDIA driver | 592.82 |
-
-Save the full package list with `pip freeze > requirements.txt`.
-
-8. Known issues
----------------
-
-- A context set with `/set parameter num_ctx` applies only after the model reloads.
-- Models that stay loaded add up in VRAM. Run `ollama stop MODEL_NAME` between tests.
-- The processor column in `speed_results_v2.csv` may show an MB or GB prefix, for example "MB 100% GPU". The value is correct. The script was fixed after that run.
-- The first request after a model is unloaded takes about 5.5 to 6 s (see report section 6).
+python agent/run_original3.py

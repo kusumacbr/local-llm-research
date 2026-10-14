@@ -23,7 +23,7 @@ if gemini_key:
             api_key=gemini_key,
             timeout=60.0,
         ),
-        "model": os.environ.get("GEMINI_MODEL", "gemini-3.7-flash"),
+        "model": "gemini-flash-lite-latest",
     }
 
 openrouter_key = os.environ.get("OPENROUTER_API_KEY", "").strip()

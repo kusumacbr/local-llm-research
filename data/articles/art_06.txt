@@ -1,30 +1,40 @@
-# Chronic Kidney Disease and Diabetes
+Chronic Kidney Disease and Diabetes
+===================================
 
-## What to know
-- Chronic kidney disease (CKD) is common in people with diabetes.
-- CKD often develops slowly and with few symptoms.
-- If you have diabetes, get your kidneys checked regularly to treat CKD early.
+What to know
+------------
+Chronic kidney disease (CKD) is common in people with diabetes. Approximately 1 in 3 adults with diabetes develops kidney disease (often referred to as diabetic kidney disease or diabetic nephropathy). Both type 1 and type 2 diabetes can cause kidney damage. Because CKD develops slowly with few symptoms in early stages, routine clinical screening is essential to catch and treat kidney damage early.
 
-## How CKD develops
-Chronic kidney disease often develops slowly and with few symptoms. Many people don't realize they have CKD until it's advanced. At that point, they need dialysis (a treatment that filters the blood) or a kidney transplant to survive.
-If you have diabetes, [get your kidneys checked regularly](https://www.cdc.gov/kidney-disease/prevention/index.html). This is done by your doctor with simple blood and urine tests. Regular testing is your best chance for identifying CKD early if you do develop it. Early treatment is most effective and can help prevent additional health problems.
-CKD is common in people with diabetes. Approximately 1 in 3 adults with diabetes has CKD. Both [type 1](https://www.cdc.gov/diabetes/about/about-type-1-diabetes.html) and [type 2](https://www.cdc.gov/diabetes/about/about-type-2-diabetes.html) diabetes can cause kidney disease.
+How diabetes causes kidney damage
+---------------------------------
+Each human kidney contains approximately one million microscopic filtering units called nephrons. Over years, chronically high blood sugar levels damage the delicate microvascular blood vessels inside the nephrons, causing them to thicken and leak. Damaged filters allow essential proteins like albumin to leak into the urine rather than remaining in the bloodstream.
 
-## How diabetes causes CKD
-Each kidney is made up of millions of tiny filters called nephrons. Over time, high blood sugar from diabetes can damage blood vessels in the kidneys and nephrons. Many people with diabetes also develop high blood pressure, which can damage kidneys too.
-CKD takes a long time to develop and usually doesn't have any signs or symptoms in the early stages. You won't know you have CKD unless your doctor checks you for it.
+In addition, many people with diabetes also develop high blood pressure. High blood pressure further strains and stiffens renal blood vessels, accelerating kidney tissue scarring and loss of filtration capacity. If left untreated, diabetic kidney disease can progress to end-stage kidney failure, requiring dialysis or a kidney transplant.
 
-## Tips for healthy kidneys
-You can help keep your kidneys healthy by managing your blood sugar, blood pressure, and cholesterol levels. This is also very important for your heart and blood vessels. High blood sugar, blood pressure, and cholesterol levels are all risk factors for heart disease and stroke.
-- Keep your blood sugar levels in your target range as much as possible.
-- Get an [A1C test](https://www.cdc.gov/diabetes/diabetes-testing/prediabetes-a1c-test.html) at least twice a year. Ask your doctor how often is right for you.
-- Keep your blood pressure below 140/90 mm Hg (or the target your doctor sets).
-- Stay in your target cholesterol range.
-- Eat foods lower in sodium.
-- Eat more fruits and vegetables.
-- Be physically active.
-- Take your medicines as directed.
-[A1C test](https://www.cdc.gov/diabetes/diabetes-testing/prediabetes-a1c-test.html)
+Risk factors for kidney disease in diabetes
+-------------------------------------------
+Your risk of developing kidney disease increases if you have:
+- Long-standing diabetes or poorly controlled blood glucose levels
+- High blood pressure (hypertension)
+- High blood cholesterol and triglyceride levels
+- A history of cigarette smoking
+- A family history of kidney failure
+- Overweight or obesity
 
-## Prediabetes and CKD
-If you have prediabetes, taking action to [prevent type 2 diabetes](https://www.cdc.gov/diabetes/prevention-type-2/prediabetes-prevent-type-2.html) is an important step in preventing CKD. CDC's National Diabetes Prevention Program can help you create the healthy lifestyle habits needed to prevent type 2 diabetes. [Find a program](https://www.cdc.gov/diabetes-prevention/lifestyle-change-program/find-a-program.html) in your community or online.
+Tips for protecting your kidneys
+--------------------------------
+Managing your diabetes effectively is the most important step to prevent or slow diabetic kidney disease:
+- Keep blood sugar levels in your target range and check your A1C regularly (typically at least twice a year).
+- Manage blood pressure to your target goal (generally below 130/80 or 140/90 mm Hg as prescribed by your doctor).
+- Take prescribed kidney-protective blood pressure medications, such as ACE inhibitors or angiotensin receptor blockers (ARBs), which protect kidney filters even in patients without hypertension.
+- Maintain target blood cholesterol and lipid levels.
+- Follow a kidney-friendly nutrition plan: consume lower sodium foods to control blood pressure and avoid excess protein that overburdens kidneys.
+- Engage in regular physical activity and avoid over-the-counter NSAID pain relievers (like ibuprofen and naproxen) that can harm kidney function.
+
+Testing and Prevention
+----------------------
+Individuals with diabetes should undergo annual kidney screening:
+1. A urine test for albumin (proteinuria) to detect early leakage.
+2. A blood test for serum creatinine to calculate eGFR.
+
+For individuals with prediabetes, taking proactive steps through healthy diet and weight loss can prevent progression to type 2 diabetes and avoid kidney complications altogether.

@@ -188,5 +188,12 @@ def main():
             writer.writerow([s["id"], s["title"], s["org"], s["url"], s["condition_type"], s["date_read"], s["licence"]])
     print(f"\nWrote {sources_csv}")
 
+    # Curate and clean articles for clear human and model readability
+    try:
+        from scripts.curate_clean_articles import main as curate_main
+        curate_main()
+    except Exception as e:
+        print(f"Curate step: {e}")
+
 if __name__ == "__main__":
     main()
