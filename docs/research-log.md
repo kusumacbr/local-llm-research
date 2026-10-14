@@ -54,3 +54,33 @@ Stretch completed:
 Next:
 - Present live demonstration of extraction pipeline (`python benchmarks/run_eval.py --models qwen2.5:3b --article art_01 --live`).
 - Synthesize final recommendations for small local models in clinical coding workflows.
+
+2026-10-14 (Day 3)
+------------------
+
+Done:
+- Corrected evaluation scoring: deduplicated model codes per article, added recall and F1 against all 36 gold-standard codes, strictly disqualified hyphenated range strings, and added 3-character category match scoring.
+- Replaced answer-key prompt examples with out-of-key codes (`prompts/extraction_prompt_v2.txt`) to eliminate prompt memorization contamination.
+- Re-evaluated all 4 local models (`qwen2.5:1.5b`, `qwen2.5:3b`, `llama3.2:3b`, and `qwen2.5:7b`) across all 10 articles under identical settings (`results/eval_results.csv`, `results/eval_raw_responses.json`).
+- Evaluated cloud reference model `gemini-flash-lite-latest` across all 10 articles (`results/gemini_reference_results.csv`) and documented disagreements with draft answer key in `results/gemini_disagreements.md`.
+- Evaluated cloud reference on the multi-step agent test with 100% ground-truth accuracy (`results/results_original3_gemini-flash-lite-latest.md`).
+- Cleaned and curated all 10 articles in `data/articles/` via `scripts/curate_clean_articles.py` to remove web scraping noise, broken HTML line breaks, and navigation text.
+- Added automated assertions to `benchmarks/run_eval.py` to verify deduplication, range disqualification, and category matching before every benchmark run.
+- Completed final consolidated documentation in `docs/report.md` (including Section 10), `results/summary.md`, `README.md`, and `docs/setup.md`.
+
+Found:
+- On unique codes, Qwen 1.5B precision dropped from 23.1% to 16.7% and Qwen 7B precision dropped from 26.1% to 12.2%.
+- Small local models achieved only 2.8% to 13.9% recall (F1 of 3.4% to 13.0%) across all 36 gold-standard codes.
+- Llama 3.2 3B returned 75.0% invalid codes due to persistent range blocks (e.g. `I10-I15`).
+- Qwen 2.5 7B with 55% CPU offload required 25.37 s per article (142 articles/hour), compared to 4.38 s to 4.58 s for GPU-resident 1.5B and 3B models (~800 articles/hour).
+- Cloud reference gemini-flash-lite-latest produced 0 invalid codes (100% taxonomy validity) and achieved 80.6% recall (29/36 hits).
+- Cloud reference scored 3/3 (100%) on the agent test, while local models failed tool arguments or grounded answering.
+
+Went wrong:
+- Ollama CPU offloading for 7B caused a 5.8x throughput drop on 4 GB laptop GPU.
+- Range strings were emitted by Llama 3.2 3B even when instructed to extract discrete ICD-10-CM codes.
+
+Next:
+- Implement RAG over CMS code descriptions to eliminate parametric hallucination.
+- Add negative prompt constraints against hyphenated ranges.
+- Test domain-specialized clinical models on larger GPU hardware.

@@ -3,7 +3,7 @@ Setup and Reproduction Guide
 
 Tested on 14 Oct 2026: Windows 11 Home Single Language (Build 26200), Intel Core i7-12650H, 16 GB RAM, NVIDIA GeForce RTX 3050 Laptop GPU (4 GB VRAM), NVIDIA driver 592.82, Ollama 0.40.4.
 
-1. Prerequisites and Installation
+Prerequisites and Installation
 ---------------------------------
 
 A. Install Ollama:
@@ -18,14 +18,18 @@ Install Python 3.10+ (tested on Python 3.14.3) and dependencies:
 pip install requests pandas openai python-dotenv
 (Or use pip install -r requirements.txt)
 
-2. Pull Required Models
+Pull Required Models
 -----------------------
 
-Pull the four evaluated local models:
+Pull the evaluated local models for the ICD-10-CM benchmark:
 ollama pull qwen2.5:1.5b
 ollama pull qwen2.5:3b
 ollama pull llama3.2:3b
 ollama pull qwen2.5:7b
+
+For earlier speed and cold start benchmarks (Days 1 and 2), optionally pull:
+ollama pull qwen2.5:0.5b
+ollama pull llama3.2:1b-instruct-q4_K_M
 
 Check model details, quantization (Q4_K_M), and licences:
 ollama show qwen2.5:1.5b
@@ -33,7 +37,7 @@ ollama show qwen2.5:3b
 ollama show llama3.2:3b
 ollama show qwen2.5:7b
 
-3. CMS ICD-10-CM Code Table and Public Health Articles
+CMS ICD-10-CM Code Table and Public Health Articles
 ------------------------------------------------------
 
 The clinical code validation table originates from the official Centers for Medicare and Medicaid Services (CMS):
@@ -46,7 +50,7 @@ python scripts/fetch_articles.py
 
 The script fetches the articles from official public-domain sources (MedlinePlus, CDC, NIH) and cleans them by removing web scraping noise, broken HTML anchor linebreaks, and navigation clutter to ensure clean, readable, and understandable text in data/articles/art_01.txt through art_10.txt.
 
-4. How to Run the Benchmark and Scorer
+How to Run the Benchmark and Scorer
 --------------------------------------
 
 The primary benchmark script is benchmarks/run_eval.py. It automatically executes built-in assertion checks for duplicate handling, range string exclusion, and category matching before running model evaluations.
@@ -76,7 +80,7 @@ Prints:
 C. Run on a Specific Model or Article:
 python benchmarks/run_eval.py --models qwen2.5:7b --article art_05 --live
 
-5. Other Benchmarks (Speed and Agent Test)
+Other Benchmarks (Speed and Agent Test)
 ------------------------------------------
 
 Warm Inference Speed Benchmark:
@@ -91,3 +95,9 @@ Multi-Step Agent Test:
 $env:PROVIDER="ollama"
 $env:OLLAMA_MODEL="llama3.2:3b"
 python agent/run_original3.py
+
+To run with the cloud reference provider (Gemini):
+$env:PROVIDER="gemini"
+python agent/run_original3.py
+
+Outputs are saved directly to results/results_original3_MODEL_TAG.md.
