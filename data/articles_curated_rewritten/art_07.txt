@@ -1,0 +1,35 @@
+Metabolic Syndrome
+==================
+
+What is metabolic syndrome?
+---------------------------
+Metabolic syndrome is the clinical name for a cluster of interrelated metabolic risk factors that occur together, dramatically increasing a person's risk of cardiovascular disease, type 2 diabetes, and stroke. Having just one risk factor raises cardiovascular risk, but when three or more of the specific criteria occur simultaneously, a diagnosis of metabolic syndrome is made.
+
+The 5 defining diagnostic criteria:
+A diagnosis requires at least 3 of the following 5 factors:
+1. Abdominal obesity (large waistline): Waist circumference of 40 inches or more in men, or 35 inches or more in women (often described as an apple-shaped body). Excess visceral abdominal fat is a stronger predictor of heart disease than subcutaneous fat in other parts of the body.
+2. High blood triglycerides: Fasting triglyceride level of 150 mg/dL or higher, or being on medication for high triglycerides.
+3. Low HDL cholesterol: HDL (good) cholesterol less than 40 mg/dL in men or less than 50 mg/dL in women, or taking medication for low HDL.
+4. High blood pressure: Systolic pressure of 130 mm Hg or higher, diastolic pressure of 85 mm Hg or higher, or taking prescription blood pressure medication.
+5. High fasting blood glucose: Fasting blood sugar level of 100 mg/dL or higher (impaired fasting glucose), or taking medication for high blood glucose.
+
+Causes of metabolic syndrome
+----------------------------
+Metabolic syndrome arises from complex interactions between genetic predisposition and lifestyle factors:
+- Insulin resistance: A condition in which muscle, fat, and liver cells do not respond effectively to the hormone insulin. As a consequence, the pancreas produces extra insulin, but blood glucose remains elevated, triggering abnormal lipid metabolism and endothelial dysfunction.
+- Overweight and physical inactivity: Sedentary lifestyle and excess adipose tissue directly promote insulin resistance and chronic systemic inflammation.
+- Genetics and ethnicity: Risk is higher in Mexican Americans, followed by non-Hispanic Whites and African Americans.
+- Underlying conditions: Women with polycystic ovary syndrome (PCOS) or a history of gestational diabetes are at substantially elevated risk.
+- Medications: Certain antipsychotics, antidepressants, and corticosteroids can trigger weight gain and metabolic disruptions.
+
+Health consequences
+-------------------
+Metabolic syndrome doubles the risk of heart disease and stroke, and increases the risk of developing type 2 diabetes by up to five-fold. It is also linked to nonalcoholic fatty liver disease (NAFLD), chronic kidney disease, sleep apnea, and peripheral vascular disease.
+
+Treatment and prevention
+------------------------
+The primary approach is therapeutic lifestyle change:
+- Heart-healthy diet: Emphasizing fruits, vegetables, whole grains, lean protein, and reduced saturated fats, refined carbohydrates, and added sugars.
+- Routine physical activity: At least 150 minutes of moderate-intensity aerobic exercise per week.
+- Weight loss: Losing 7% to 10% of total body weight substantially improves insulin sensitivity, lowers blood pressure, and normalizes lipid profiles.
+- Medications: When lifestyle changes are insufficient, doctors prescribe medications to control individual components, including antihypertensives, statins, fibrates, and metformin.

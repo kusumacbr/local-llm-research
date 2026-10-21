@@ -188,12 +188,12 @@ def main():
             writer.writerow([s["id"], s["title"], s["org"], s["url"], s["condition_type"], s["date_read"], s["licence"]])
     print(f"\nWrote {sources_csv}")
 
-    # Curate and clean articles for clear human and model readability
+    # Restore real articles via trafilatura and mechanical cleaning
     try:
-        from scripts.curate_clean_articles import main as curate_main
-        curate_main()
+        from scripts.restore_articles import main as restore_main
+        restore_main()
     except Exception as e:
-        print(f"Curate step: {e}")
+        print(f"Restore step: {e}")
 
 if __name__ == "__main__":
     main()

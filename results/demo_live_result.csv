@@ -1,3 +1,0 @@
-model,article_id,title,condition_type,valid_json,num_codes_returned,codes_returned,num_invalid_codes,invalid_codes,num_exact_matches,exact_matches,num_category_matches,category_matches,num_chapter_matches,chapter_matches,num_tier_matches,tier_matches,time_taken_s,prompt_eval_count,eval_count,error_notes
-qwen2.5:3b,art_01,Asthma,single,yes,1,J45.0,1,J45.0,0,,1,J45.0,1,J45.0,0,,9.05,1338,46,
-qwen2.5:3b,art_02,High Blood Pressure,single,yes,1,I10,0,,1,I10,1,I10,1,I10,1,I10,3.06,926,44,

@@ -1,0 +1,47 @@
+Stroke
+======
+
+What is a stroke?
+-----------------
+A stroke (cerebrovascular accident) occurs when blood flow to a region of the brain is interrupted or reduced, depriving brain tissue of oxygen and vital nutrients. Within minutes, brain cells begin to die. A stroke is a medical emergency that can lead to permanent brain injury, long-term physical and cognitive disability, or death. Immediate emergency care is critical to limit brain damage.
+
+Types of stroke
+---------------
+There are two primary categories of stroke, as well as a related warning event:
+
+1. Ischemic stroke:
+The most common type, accounting for roughly 87% of all strokes. It occurs when a blood clot (thrombus or embolus) blocks or narrows an artery leading to or within the brain. Ischemic strokes can result from atherosclerosis (plaque buildup inside arteries) or cardiac conditions like atrial fibrillation that launch blood clots into cerebral circulation.
+
+2. Hemorrhagic stroke:
+Occurs when a weakened blood vessel in the brain ruptures and leaks blood into or around surrounding brain tissue. Causes include chronic untreated high blood pressure, cerebral aneurysms, arteriovenous malformations (AVMs), and head trauma.
+
+3. Transient ischemic attack (TIA):
+Often called a mini-stroke, a TIA is a temporary blockage of blood flow to the brain that resolves without causing permanent infarction. However, a TIA is a serious warning sign indicating high immediate risk for a full ischemic stroke.
+
+Major risk factors
+------------------
+The leading treatable risk factors for stroke include:
+- High blood pressure (hypertension): The single most important modifiable risk factor for both ischemic and hemorrhagic stroke.
+- Heart disease: Including coronary artery disease, heart valve disorders, and especially atrial fibrillation, which causes irregular heart contractions that promote clot formation.
+- Diabetes: Damages blood vessels and promotes atherosclerosis.
+- Smoking and tobacco use: Damages arterial lining and doubles ischemic stroke risk.
+- High blood cholesterol and dyslipidemia: Contributes to carotid artery stenosis.
+- Obesity, lack of exercise, and unhealthy diet.
+- Non-modifiable factors: Older age, family history, and race/ethnicity (African American and Hispanic populations have elevated stroke incidence).
+
+Symptoms of a stroke
+--------------------
+Stroke symptoms appear suddenly. The FAST acronym outlines key warning signs:
+- F - Face: One side of the face droops or is numb; smile is uneven.
+- A - Arms: One arm drifts downward when both arms are raised.
+- S - Speech: Slurred speech or difficulty speaking and understanding.
+- T - Time: Time to call 911 immediately if any of these signs are present.
+
+Other symptoms include sudden numbness or weakness on one side of the body, sudden confusion, trouble seeing in one or both eyes, loss of balance or coordination, and a sudden severe headache with no known cause.
+
+Treatment
+---------
+Emergency treatment depends on the stroke type:
+- Ischemic stroke: Intravenous thrombolytic therapy (clot-dissolving tissue plasminogen activator, or tPA) administered within 3 to 4.5 hours of symptom onset, or mechanical thrombectomy (catheter-based clot retrieval).
+- Hemorrhagic stroke: Emergency surgery to repair ruptured aneurysms or relieve intracranial pressure, along with medications to reverse blood thinners and control blood pressure.
+- Long-term rehabilitation: Physical, occupational, and speech therapy alongside antiplatelet medications (aspirin), statins, and antihypertensive drugs to prevent recurrence.

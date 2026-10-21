@@ -1,0 +1,57 @@
+Pneumonia
+=========
+
+What is pneumonia?
+------------------
+Pneumonia is an infection in one or both of your lungs. It causes the air sacs (alveoli) of your lungs to fill up with fluid or pus. Pneumonia can range from mild (sometimes referred to as walking pneumonia) to life-threatening, depending on the pathogen, patient age, and underlying health.
+
+What causes pneumonia?
+----------------------
+Bacterial, viral, and fungal infections can all cause pneumonia:
+
+1. Bacterial pneumonia:
+Bacteria are the most common cause of community-acquired pneumonia. Bacterial pneumonia can occur on its own or develop after a viral upper respiratory infection such as a cold or influenza. Common bacterial causes include:
+- Streptococcus pneumoniae (pneumococcus)
+- Legionella pneumophila (the cause of Legionnaires' disease)
+- Mycoplasma pneumoniae (common cause of atypical or mild pneumonia)
+- Chlamydia pneumoniae
+- Haemophilus influenzae type b (Hib)
+
+2. Viral pneumonia:
+Viruses that infect the respiratory tract can cause pneumonia. Viral pneumonia is often mild, but can become severe and predispose individuals to secondary bacterial pneumonia. Common viral causes include:
+- Influenza viruses (flu)
+- Respiratory syncytial virus (RSV)
+- SARS-CoV-2 (the coronavirus that causes COVID-19)
+- Common cold viruses (rhinoviruses and adenoviruses)
+
+3. Fungal pneumonia:
+Fungal pneumonia is most common in individuals with chronic health problems or compromised immune systems. Types include:
+- Pneumocystis pneumonia (PCP), caused by Pneumocystis jirovecii
+- Coccidioidomycosis (Valley fever), found in southwestern United States
+- Histoplasmosis, associated with bird and bat droppings
+- Cryptococcal pneumonia
+
+4. Aspiration pneumonia:
+Occurs when food, saliva, liquid, or vomit is accidentally breathed into the lungs, allowing oral bacteria to colonize the lower airways.
+
+Risk factors
+------------
+Risk factors include older age (65 and older), young age (children under 2), chronic medical conditions (such as asthma, chronic obstructive pulmonary disease, heart disease, diabetes, and sickle cell disease), weakened immune systems, smoking, hospitalization, and being on a ventilator.
+
+Symptoms of pneumonia
+---------------------
+Symptoms can vary from mild to severe and include:
+- High fever, shaking chills, and sweating
+- Cough, which may produce greenish, yellow, or bloody mucus
+- Shortness of breath and rapid breathing
+- Sharp or stabbing chest pain that gets worse with deep breathing or coughing
+- Fatigue, loss of appetite, nausea, vomiting, or diarrhea
+- Confusion or changes in mental awareness, especially in older adults
+
+Diagnosis and Treatment
+-----------------------
+Pneumonia is diagnosed through medical history, physical examination (listening to lung crackles with a stethoscope), chest X-rays, blood tests (complete blood count, blood cultures), pulse oximetry, and sputum tests. Treatment depends on the type of pneumonia:
+- Antibiotics are used to treat bacterial pneumonia.
+- Antiviral medicines may be prescribed for viral pneumonia (such as oseltamivir for influenza).
+- Antifungal medications treat fungal pneumonia.
+- Supportive care includes fever reducers, cough medicine, rest, fluids, and supplemental oxygen or hospitalization for severe cases.

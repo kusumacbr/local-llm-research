@@ -510,7 +510,7 @@ def main():
             all_rows.append(row)
 
         expected_total = sum(len(answer_key.get(os.path.splitext(os.path.basename(p))[0], [])) for p in article_files)
-        print_model_summary_table(model, model_rows, gt_total_codes=expected_total if selected_articles else 36)
+        print_model_summary_table(model, model_rows, gt_total_codes=expected_total)
         unload_model(model)
 
     fieldnames = [

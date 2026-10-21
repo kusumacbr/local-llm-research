@@ -84,3 +84,27 @@ Next:
 - Implement RAG over CMS code descriptions to eliminate parametric hallucination.
 - Add negative prompt constraints against hyphenated ranges.
 - Test domain-specialized clinical models on larger GPU hardware.
+
+2026-10-21 (Day 4: Fair Comparison Update)
+-----------------------------------------
+
+Done:
+- Restored real page text for all 10 articles from US Government sources using Trafilatura 2.3.1 with purely mechanical cleaning (stripped navigation menus, breadcrumbs, link URLs, unwrapped glossary modals; 0 added, deleted, or reworded sentences). Archived rewritten summaries to `data/articles_curated_rewritten/`.
+- Isolated prompt leakage: Evaluated all 4 local models on identical restored text under Prompt v1 (with in-key hints) vs Prompt v2 (neutral examples). Saved data in `results/eval_results_v1.csv` and `results/prompt_v1_vs_v2_comparison.md`.
+- Enforced strict JSON schema (`maxItems: 6`) on Cloud Model (`gemini-flash-lite-latest`) under Gemini OpenAI compatibility, eliminating unconstrained code emission. Saved data in `results/gemini_results_structured_v2.csv`.
+- Measured temperature 0 determinism: Repeated both local (`qwen2.5:1.5b`) and cloud (`gemini-flash-lite-latest`) 3 times across all 10 articles. Documented results in `results/repeat_variance_local_1.5b.md` and `results/repeat_variance_cloud_gemini.md`.
+- Adjudicated answer key disagreements using official CMS ICD-10-CM coding guidelines (Section I.B.9 combination codes, Section I.B.1 specificity) and Tabular List instructional notes (Excludes1 and "Use additional code"). Updated `data/answer_key.csv` from 36 to 47 conditions (16 row changes) and documented in `results/answer_key_changes.md`.
+- Re-scored all model runs against the adjudicated key via `scripts/rescore_all.py` and consolidated final tables into `docs/report.md` and `results/summary.md`.
+
+Found:
+- Prompt leakage accounted for virtually all exact match recall on models <= 3B: Qwen 2.5 3B recall fell from 8.5% (v1) to 0.0% (v2), Qwen 1.5B from 12.8% to 2.1%, and Llama 3B from 12.8% to 2.1%. Only Qwen 7B maintained 10.6% recall across both prompts.
+- Under equal rules (`maxItems: 6`), Cloud reference Gemini Flash Lite achieved 78.8% exact precision, 87.2% recall (41/47 hits), and 0% taxonomy hallucinations.
+- At temperature 0, local models on Ollama are 100% bit-for-bit deterministic (10/10 identical runs), whereas cloud models exhibit run-to-run variance (1/10 identical) due to distributed GPU execution.
+- Guideline adjudication affirmed that combination code `E11.22` and stage code `N18.9` must both be reported for diabetic kidney disease, resolving the bundling question.
+
+Went wrong:
+- Gemini free-tier rate limit (15 RPM) triggered 429 errors on rapid repeat runs. Solved by introducing a 4.5s pacing delay and exponential retry backoff.
+
+Next:
+- Prepare demonstration: side-by-side restored article text vs source page, main table, v1 vs v2, and cloud model under equal rules.
+

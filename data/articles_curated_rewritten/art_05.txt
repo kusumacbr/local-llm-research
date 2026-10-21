@@ -1,0 +1,49 @@
+What is Chronic Kidney Disease?
+================================
+
+Overview
+--------
+Chronic kidney disease (CKD) is a medical condition in which the kidneys are damaged and cannot filter blood as effectively as healthy kidneys. Normally, the kidneys filter extra water and wastes out of your blood to produce urine. When kidneys are damaged over months and years, waste products, toxins, and fluid build up in the blood, leading to complications throughout the body.
+
+CKD is a major public health concern affecting more than 35 million adults in the United States (more than 1 in 7 adults). Because kidney damage typically happens slowly over time, many people have no symptoms in the early stages and do not know they have kidney disease.
+
+Causes and Risk Factors
+-----------------------
+The two leading causes of chronic kidney disease are:
+- Diabetes: High blood glucose levels damage the millions of microscopic filtering units (nephrons) inside each kidney over time.
+- High blood pressure (hypertension): Uncontrolled elevated blood pressure damages the delicate blood vessels in the kidneys, reducing their ability to clean blood.
+
+Other conditions that can cause or contribute to CKD include:
+- Glomerulonephritis: Inflammation of the kidney's filtering units.
+- Polycystic kidney disease: An inherited genetic condition causing large fluid-filled cysts to grow in kidney tissue.
+- Cardiovascular disease: Heart and blood vessel conditions.
+- Autoimmune diseases such as lupus nephritis.
+- Repeated urinary tract infections or prolonged urinary tract obstructions (from kidney stones or enlarged prostate).
+
+Stages of Chronic Kidney Disease
+--------------------------------
+CKD is classified into five stages based on the estimated glomerular filtration rate (eGFR), which measures how many milliliters of blood the kidneys clean per minute:
+- Stage 1: Kidney damage with normal or high kidney function (eGFR 90 or greater with persistent protein in urine).
+- Stage 2: Kidney damage with mild loss of kidney function (eGFR 60 to 89).
+- Stage 3: Moderate loss of kidney function, divided into Stage 3a (eGFR 45 to 59) and Stage 3b (eGFR 30 to 44).
+- Stage 4: Severe loss of kidney function (eGFR 15 to 29).
+- Stage 5: Kidney failure or End-Stage Renal Disease (eGFR less than 15), requiring kidney replacement therapy (dialysis or kidney transplant) to sustain life.
+
+Complications of CKD
+--------------------
+As kidney function declines, patients frequently experience serious health complications:
+- High blood pressure (both a cause and a consequence of kidney damage)
+- Heart disease, heart failure, and elevated risk of heart attacks
+- Anemia, caused by reduced production of the hormone erythropoietin (EPO) by diseased kidneys
+- Fluid retention (edema) causing swelling in the feet, ankles, and lungs
+- Hyperkalemia (high blood potassium levels), which can trigger dangerous cardiac arrhythmias
+- Metabolic acidosis (buildup of acid in bodily fluids)
+- Mineral and bone disorder, leading to weak, brittle bones and vascular calcification
+
+Symptoms and Diagnosis
+----------------------
+Early CKD is usually silent. Advanced CKD produces symptoms such as fatigue, swollen ankles or feet, puffiness around the eyes, changes in urination frequency, loss of appetite, nausea, itchy skin, and muscle cramps. CKD is diagnosed using two simple tests:
+1. eGFR blood test: Measures creatinine levels to estimate filtering capacity.
+2. Urine albumin-to-creatinine ratio (uACR): Detects albumin (protein) leaking into urine, a marker of kidney filter damage.
+
+Treatment focuses on slowing kidney damage through blood pressure control (using ACE inhibitors or ARBs), diabetes management, dietary modifications (reducing sodium, potassium, and phosphorus), and preparing for renal replacement therapy if stage 5 occurs.

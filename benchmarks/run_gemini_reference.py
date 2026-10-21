@@ -53,6 +53,9 @@ def main():
     raw_logs = {}
     disagreements = []
 
+    with open(SCHEMA_FILE, "r", encoding="utf-8") as f:
+        schema = json.load(f)
+
     for art_path in article_files:
         art_id = os.path.splitext(os.path.basename(art_path))[0]
         with open(art_path, "r", encoding="utf-8") as f:
@@ -72,7 +75,14 @@ def main():
             resp = client.chat.completions.create(
                 model=MODEL_NAME,
                 messages=[{"role": "user", "content": prompt_content}],
-                response_format={"type": "json_object"},
+                response_format={
+                    "type": "json_schema",
+                    "json_schema": {
+                        "name": "HealthArticleConditions",
+                        "strict": True,
+                        "schema": schema
+                    }
+                },
                 temperature=0
             )
             wall_time = time.time() - t0
@@ -163,7 +173,8 @@ def main():
         }
         all_rows.append(row)
 
-    print_model_summary_table(MODEL_NAME, all_rows, gt_total_codes=36)
+    expected_total = sum(len(answer_key.get(os.path.splitext(os.path.basename(p))[0], [])) for p in article_files)
+    print_model_summary_table(MODEL_NAME, all_rows, gt_total_codes=expected_total)
 
     # Write reference CSV
     csv_out = os.path.join(RESULTS_DIR, "gemini_reference_results.csv")

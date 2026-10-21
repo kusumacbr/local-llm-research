@@ -1,7 +1,14 @@
+# ==============================================================================
+# DEPRECATED / ARCHIVED - DO NOT USE FOR SCORING OR PIPELINE
+# The rewritten articles in this script have been archived to data/articles_curated_rewritten/.
+# Active benchmarks strictly use the restored real page text in data/articles/.
+# ==============================================================================
 import os
 import re
 
-ARTICLES_DIR = os.path.join("data", "articles")
+raise RuntimeError("scripts/curate_clean_articles.py is deprecated. Use scripts/restore_articles.py instead.")
+
+ARTICLES_DIR = os.path.join("data", "articles_curated_rewritten")
 os.makedirs(ARTICLES_DIR, exist_ok=True)
 
 ARTICLES = {}

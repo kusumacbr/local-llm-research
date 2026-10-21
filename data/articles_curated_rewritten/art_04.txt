@@ -1,0 +1,30 @@
+Alzheimer's Disease
+===================
+
+What is Alzheimer's disease?
+----------------------------
+Alzheimer's disease is a progressive neurological brain disorder and the most common cause of dementia among older adults. Dementia is the loss of cognitive functioning (thinking, remembering, and reasoning) to such an extent that it interferes with a person's daily life and activities. Alzheimer's disease destroys brain cells and neural connections, beginning in regions of the brain that control memory, thought, and language.
+
+Stages and progression
+----------------------
+Alzheimer's progresses gradually through stages:
+- Preclinical stage: Brain changes begin years before noticeable symptoms develop.
+- Mild cognitive impairment (MCI): A condition characterized by subtle memory lapses or cognitive changes greater than expected for normal aging, without preventing independent living. Many people with MCI eventually progress to Alzheimer's disease.
+- Mild Alzheimer's disease: Symptoms become apparent. People experience greater memory loss, wander and get lost in familiar places, repeat questions, and take longer to complete normal daily tasks.
+- Moderate Alzheimer's disease: Damage spreads to areas controlling language, reasoning, conscious thought, and sensory processing. Individuals may have trouble recognizing family members, develop hallucinations or paranoia, and require assistance with bathing and dressing.
+- Severe Alzheimer's disease: Plaques and tangles spread throughout the brain tissue. Patients lose the ability to communicate, cannot recognize loved ones, become bedridden, and require around-the-clock intensive nursing care.
+
+Risk factors
+------------
+While the exact etiology remains under research, known risk factors include:
+- Age: The greatest known risk factor; most individuals with late-onset Alzheimer's are diagnosed at age 65 or older. Early-onset Alzheimer's occurs before age 65 and is rare.
+- Genetics and family history: Having a first-degree relative with Alzheimer's increases personal risk.
+- Cardiovascular and metabolic conditions: Uncontrolled high blood pressure, diabetes, heart disease, and high cholesterol.
+- Neurological factors: History of traumatic brain injury (TBI) or repetitive head concussions.
+- Sensory and psychiatric comorbidities: Untreated hearing loss and chronic depression.
+
+Diagnosis and Management
+------------------------
+Doctors diagnose Alzheimer's through clinical evaluation, cognitive assessments (memory and problem-solving tests), neurological examinations, brain imaging (MRI, CT, PET scans to detect amyloid plaques and brain atrophy), and ruling out other conditions such as vitamin deficiencies or stroke. 
+
+While there is currently no cure for Alzheimer's disease, treatments include medications to manage cognitive symptoms (cholinesterase inhibitors and memantine), disease-modifying therapies targeting amyloid pathology, behavioral symptom management, and supportive caregiver resources.

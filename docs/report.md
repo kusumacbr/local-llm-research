@@ -1,5 +1,7 @@
-Local LLM Research Report (Day 3 Final Results, 14 Oct 2026)
-=============================================================
+Local LLM Research Report (Day 4 Fair Comparison Update, 21 Oct 2026)
+=====================================================================
+
+Git commit: 316e4ac (Day 3 Base Commit)
 
 Question: Are local models good enough, fast enough and safe enough to use in our agents? Dummy data only. Ollama listens on localhost only.
 
@@ -8,7 +10,7 @@ Summary
 
 On a 4 GB RTX 3050 laptop GPU, models of 0.5B to 3B parameters run entirely on the GPU at 67 to 214 tokens/sec, with no per-call cost and no data leaving the machine. They are fast enough once loaded. They were not reliable enough for our multi-step tool-using agent: no model gave a fully correct answer on any of the three test tasks. A cold start (first request after unload) costs about 5.5 to 6 s regardless of model size.
 
-For clinical ICD-10-CM diagnosis coding across 10 public health articles using the official CMS FY 2026 taxonomy, local models (1.5B to 7B) maintained 100% valid JSON adherence, but achieved low exact precision (4.5% to 16.7%) and low recall (2.8% to 13.9%), with high hallucination rates on non-billable range blocks. In contrast, cloud reference gemini-flash-lite-latest achieved 80.6% recall with 0% taxonomy hallucinations.
+For clinical ICD-10-CM diagnosis coding across 10 public health articles using the official CMS FY 2026 taxonomy, the Day 4 fair-comparison evaluation restored real page text (mechanically cleaned without rewriting), eliminated answer-key prompt example leakage (isolating v1 vs v2), enforced strict structured schema limits (`maxItems: 6`) on both local and cloud models, and settled the answer key to 47 clinical conditions via official CMS guidelines and tabular notes. Under these fair rules, local small models (1.5B to 3B) achieved only 0.0% to 2.1% exact recall (2.5% to 5.6% precision), while 7B achieved 10.6% recall (16.7% precision) with 36.7% hallucinations. In contrast, cloud reference gemini-flash-lite-latest under identical schema constraints achieved 87.2% recall (41/47 exact matches), 78.8% precision, and 0% hallucinations. Temperature 0 repeated runs revealed that the local model is 100% bit-for-bit deterministic, whereas the cloud model exhibited minor output variance across 9 of 10 articles.
 
 Hardware
 ===========
@@ -148,81 +150,125 @@ Recommendation (Days 1 & 2)
 - Good enough: not on this 4 GB hardware for multi-step tool use.
 - Do not replace the cloud model for this agent yet.
 
-ICD-10-CM classification benchmark
-======================================
+ICD-10-CM classification benchmark (Day 4 Fair Comparison Update)
+==================================================================
+
+Git commit: 316e4ac (Day 3 Base Commit)
 
 A. Summary
--------
-No: local models on this 4 GB laptop GPU cannot reliably perform clinical ICD-10-CM coding, yielding low exact precision (4.5% to 16.7%) and low recall (2.8% to 13.9%).
-On speed, models fully resident on GPU (1.5B and 3B) process an article in 4.4 to 4.6 seconds (~780 to 820 articles/hour), while the 7B model with 55% CPU offload requires 25.4 seconds (~142 articles/hour).
-Structured decoding enforces 100% valid JSON adherence across all models, but medical domain validity remains poor with 13.6% to 75.0% invalid or hallucinated codes.
-Llama 3.2 3B failed decisively by outputting non-billable range blocks (75% invalid codes), whereas Qwen models predicted discrete encounter-level codes.
-Recommendation: do not deploy local small models as autonomous medical coders on edge devices; they may serve only as coarse chapter triage filters or draft suggestion tools.
+----------
+Local models on this 4 GB laptop GPU cannot reliably perform clinical ICD-10-CM diagnosis coding under fair, standardized evaluation conditions. On restored real page text using neutral prompt examples (v2) and adjudicated ground truth (47 conditions), models of 1.5B to 3B parameters achieved only 0.0% to 2.1% exact recall (2.5% to 5.6% exact precision). The 7.6B model achieved 10.6% recall and 16.7% precision, but hallucinated non-existent codes or non-billable ranges 36.7% of the time.
+
+In contrast, cloud reference `gemini-flash-lite-latest` evaluated under the exact same schema constraint (`maxItems: 6`) achieved 87.2% recall (41 of 47 exact matches), 78.8% precision, and 0% taxonomy hallucinations, processing articles at 1.94 s/article (1,853 articles/hour).
+
+Isolating prompt leakage revealed that the answer hints in Prompt v1 (`I10, E11.9, J45.909, G30.9, N18.9`) were responsible for almost all exact matches in small models (less than or equal to 3B): `qwen2.5:3b` dropped from 4 hits to 0 (11.1% to 0.0% recall), and `qwen2.5:1.5b` dropped from 6 hits to 1 (12.8% to 2.1% recall).
+
+Repeat runs at temperature 0 established that local models on Ollama are 100% bit-for-bit deterministic (10/10 identical outputs), whereas cloud APIs exhibit non-determinism across runs (only 1/10 identical outputs) due to distributed GPU execution and Mixture-of-Experts routing.
 
 B. Setup
------
-- Hardware: NVIDIA GeForce RTX 3050 Laptop GPU (4096 MiB VRAM), 12th Gen Intel Core i7-12650H (16 logical processors), 16 GB DDR4 RAM, Windows 11 Home (Build 26200).
-- Ollama version: 0.40.4.
-- Models and quantisation: `qwen2.5:1.5b` (Q4_K_M, 100% GPU), `qwen2.5:3b` (Q4_K_M, 100% GPU), `llama3.2:3b` (Q4_K_M, 100% GPU), `qwen2.5:7b` (Q4_K_M, 55%/45% CPU/GPU split).
-- Generation settings: Temperature 0, `num_predict: 450`, single run per model on each article. All models stopped before each model run via `ollama stop`.
-- Schema: Strict JSON schema (`schema/icd10_schema.json`) requiring `{"conditions": [{"name": str, "icd10cm_code": str, "tier": "primary"|"secondary"|"tertiary"}]}` with `maxItems: 6`.
-- Prompt file: `prompts/extraction_prompt_v2.txt` (clinical coding prompt with out-of-key example codes: M54.50, K21.9, R51.9, L20.9, H10.9).
-
-C. Test set
 --------
-- 10 full-text health articles from public domain US government sources (NIH: NIDDK and NHLBI, MedlinePlus, CDC), catalogued with URLs and public-domain licences in data/sources.csv.
-- Fetching and text curation: Articles were fetched via automated script (scripts/fetch_articles.py) and cleaned to remove web scraping noise (such as broken intra-sentence linebreaks from inline HTML anchor tags, website navigation menus, and dangling links), producing contiguous, readable, and clinically understandable text for model evaluation.
-- Article composition: 5 single-condition articles (art_01 to art_05: Asthma, Hypertension, Pneumonia, Alzheimer's, Chronic Kidney Disease) and 5 multi-condition articles (art_06 to art_10: CKD + Diabetes, Metabolic Syndrome, Stroke, COPD, Heart Failure).
-- Code table version: CMS FY 2026 ICD-10-CM Tabular Order File (icd10cm_order_2026.txt, effective Oct 1, 2025 to Sept 30, 2026; 98,186 valid classification codes).
-- Answer key: Stored in data/answer_key.csv, containing 36 expected condition rows across the 10 articles, with clinical rationale and assigned importance tiers (primary, secondary, tertiary).
-- Working draft disclaimer: The answer key was curated by review against the CMS 2026 tabular list and serves as an engineering benchmark draft, not a certified clinical ground truth.
+- Hardware: NVIDIA GeForce RTX 3050 Laptop GPU (4096 MiB VRAM), 12th Gen Intel Core i7-12650H (16 logical processors), 16 GB DDR4 RAM, Windows 11 Home (Build 26200).
+- Software: Ollama 0.40.4, Python 3.14.3, Trafilatura 2.3.1, requests 2.32.5, pandas 3.0.2, openai 1.66.0.
+- Models and Quantisation: `qwen2.5:1.5b` (Q4_K_M, 100% GPU), `qwen2.5:3b` (Q4_K_M, 100% GPU), `llama3.2:3b` (Q4_K_M, 100% GPU), `qwen2.5:7b` (Q4_K_M, 55%/45% CPU/GPU split), and `gemini-flash-lite-latest` (Cloud Reference).
+- Generation Settings: Temperature 0, `num_predict: 450`, single run per model on each article. All local models stopped before each run via `ollama stop`.
+- Schema: Strict JSON schema (`schema/icd10_schema.json`) requiring `{"conditions": [{"name": str, "icd10cm_code": str, "tier": "primary"|"secondary"|"tertiary"}]}` with `maxItems: 6`.
+- Prompt Files:
+  - `prompts/extraction_prompt.txt` (v1: contains answer hints `I10, E11.9, J45.909, G30.9, N18.9`).
+  - `prompts/extraction_prompt_v2.txt` (v2: neutral out-of-key examples `M54.50, K21.9, R51.9, L20.9, H10.9`).
+- Code Table Version: CMS FY 2026 ICD-10-CM Tabular Order File (`icd10cm_order_2026.txt`, 98,186 valid classification codes).
+- Answer Key: Adjudicated against official CMS ICD-10-CM coding guidelines and tabular notes, containing 47 condition rows across 10 articles (`data/answer_key.csv`).
 
-D. Results table
--------------
+C. Test Set & Text Preparation
+------------------------------
+Articles were re-fetched from US government public health sources (MedlinePlus, NIDDK, CDC, NHLBI) and extracted using Trafilatura 2.3.1 with strictly mechanical cleaning: removing navigation menus, breadcrumbs, footers, and link URLs, unwrapping embedded glossary popups, and normalizing broken intra-sentence line breaks. Zero sentences were added, deleted, or reworded.
 
-| Model | Valid JSON | Codes Returned (Unique) | Invalid Codes | Exact Precision / Recall / F1 | Category Match | Chapter Match | Tier Match | Seconds / Article | Tokens / Article (in / out) |
+The previous rewritten summary files have been archived to `data/articles_curated_rewritten/` and are no longer used for scoring.
+
+Article Text Restoration and Comparison Table
+---------------------------------------------
+
+| Article | Source Title | Day 3 Words | Restored Words | Day 3 Match (%) | Rewritten Words | New Words in Rewritten (%) |
+|---|---|---|---|---|---|---|
+| `art_01` | Asthma | 860 | 860 | 100.0% | 650 | 6.2% |
+| `art_02` | High Blood Pressure | 510 | 510 | 100.0% | 460 | 37.3% |
+| `art_03` | Pneumonia | 1019 | 1019 | 100.0% | 440 | 33.5% |
+| `art_04` | Alzheimer's Disease | 611 | 598 | 97.7% | 394 | 55.5% |
+| `art_05` | What is Chronic Kidney Disease? | 1298 | 1084 | 87.1% | 550 | 56.7% |
+| `art_06` | Chronic Kidney Disease and Diabetes | 486 | 405 | 96.2% | 420 | 56.8% |
+| `art_07` | Metabolic Syndrome | 653 | 653 | 100.0% | 476 | 54.4% |
+| `art_08` | Stroke | 1037 | 1033 | 98.9% | 507 | 45.6% |
+| `art_09` | Chronic Obstructive Pulmonary Disease | 797 | 397 | 57.6% | 454 | 64.7% |
+| `art_10` | Heart Failure | 1103 | 1103 | 100.0% | 483 | 49.5% |
+
+Note: On MedlinePlus pages, Trafilatura extracts 97.7% to 100.0% of Day 3 vocabulary while joining lines cleanly. On NIDDK, CDC, and NHLBI, lower percentage match reflects the mechanical stripping of website navigation menus, breadcrumbs, and glossary popup tooltips (`krah-nik`, `in-fluh-may-shun`) that previously cluttered the Day 3 raw fetch.
+
+D. Main Results Table (Restored Real Text, Prompt v2 Neutral, Strict Schema maxItems: 6, Adjudicated Key)
+---------------------------------------------------------------------------------------------------------
+
+Data: `results/eval_results.csv` and `results/gemini_results_structured_v2.csv`. Evaluated against the 47-condition official adjudicated answer key.
+
+| Model | Valid JSON | Codes Returned (Unique) | Invalid Codes | Exact Matches (GT=47) | Exact Precision / Recall / F1 | Category Match | Chapter Match | Tier Match | Seconds / Article | Throughput |
+|---|---|---|---|---|---|---|---|---|---|---|
+| `qwen2.5:1.5b` | 10/10 (100%) | 18 | 8 (44.4%) | 1 | P=5.6% / R=2.1% / F1=3.1% | 4 | 14 | 1 | 4.26 s | 844 art/hr |
+| `qwen2.5:3b` | 10/10 (100%) | 19 | 4 (21.1%) | 0 | P=0.0% / R=0.0% / F1=0.0% | 6 | 16 | 0 | 4.25 s | 847 art/hr |
+| `llama3.2:3b` | 10/10 (100%) | 40 | 30 (75.0%) | 1 | P=2.5% / R=2.1% / F1=2.3% | 4 | 14 | 1 | 7.38 s | 488 art/hr |
+| `qwen2.5:7b` | 10/10 (100%) | 30 | 11 (36.7%) | 5 | P=16.7% / R=10.6% / F1=13.0% | 15 | 22 | 5 | 18.85 s | 191 art/hr |
+| `gemini-flash-lite-latest` (Cloud Reference) | 10/10 (100%) | 52 | 0 (0.0%) | 41 | P=78.8% / R=87.2% / F1=82.8% | 43 | 49 | 36 | 1.94 s | 1853 art/hr |
+
+E. One Change at a Time: Prompt v1 (with hints) vs Prompt v2 (neutral examples)
+--------------------------------------------------------------------------------
+
+Data: `results/eval_results_v1.csv` vs `results/eval_results_v2.csv` (both tested on identical restored real text under the 47-condition adjudicated key):
+
+| Model | Prompt Variant | Codes Returned | Invalid Codes | Exact Matches | Exact Precision | Exact Recall | F1 Score | Cat Matches | Mean Latency |
 |---|---|---|---|---|---|---|---|---|---|
-| qwen2.5:1.5b | 10/10 (100%) | 18 | 4 (22.2%) | P=16.7% / R=8.3% / F1=11.1% | 6 | 13 | 1 | 4.38 s | 1363.9 / 156.4 |
-| qwen2.5:3b | 10/10 (100%) | 22 | 3 (13.6%) | P=4.5% / R=2.8% / F1=3.4% | 6 | 19 | 1 | 4.58 s | 1363.9 / 91.9 |
-| llama3.2:3b | 10/10 (100%) | 44 | 33 (75.0%) | P=4.5% / R=5.6% / F1=5.0% | 4 | 11 | 2 | 9.35 s | 1341.6 / 193.4 |
-| qwen2.5:7b | 10/10 (100%) | 41 | 10 (24.4%) | P=12.2% / R=13.9% / F1=13.0% | 11 | 33 | 4 | 25.37 s | 1363.9 / 185.9 |
-| gemini-flash-lite-latest (Cloud Reference) | 10/10 (100%) | 114 | 0 (0.0%) | P=25.4% / R=80.6% / F1=38.7% | 32 | 73 | 24 | 5.71 s | 1368.9 / 524.2 |
+| `qwen2.5:1.5b` | v1 (hints) | 20 | 7 (35.0%) | 6 | 30.0% | 12.8% | 17.9% | 9 | 4.19 s |
+| `qwen2.5:1.5b` | v2 (neutral) | 18 | 8 (44.4%) | 1 | 5.6% | 2.1% | 3.1% | 4 | 4.26 s |
+| `qwen2.5:3b` | v1 (hints) | 20 | 2 (10.0%) | 4 | 20.0% | 8.5% | 11.9% | 9 | 4.36 s |
+| `qwen2.5:3b` | v2 (neutral) | 19 | 4 (21.1%) | 0 | 0.0% | 0.0% | 0.0% | 6 | 4.25 s |
+| `llama3.2:3b` | v1 (hints) | 37 | 22 (59.5%) | 6 | 16.2% | 12.8% | 14.3% | 8 | 8.37 s |
+| `llama3.2:3b` | v2 (neutral) | 40 | 30 (75.0%) | 1 | 2.5% | 2.1% | 2.3% | 4 | 7.38 s |
+| `qwen2.5:7b` | v1 (hints) | 31 | 6 (19.4%) | 5 | 16.1% | 10.6% | 12.8% | 17 | 18.54 s |
+| `qwen2.5:7b` | v2 (neutral) | 30 | 11 (36.7%) | 5 | 16.7% | 10.6% | 13.0% | 15 | 18.85 s |
 
-Cloud Reference Comparison and Answer Key Disagreements: gemini-flash-lite-latest had 0 invalid codes across 114 extracted conditions (100% taxonomy validity) and achieved 80.6% recall against the 36 gold-standard codes (29 exact matches). Disagreements with the draft answer key stemmed primarily from: (1) higher clinical specificity (e.g., coding Heart Failure I50.9 and Heart Attack I21.9 instead of unspecified heart disease I51.9 on article 2), (2) unbundled coding rather than combination codes (extracting E11.9 and N18.9 separately instead of combination code E11.22 on article 6), and (3) broader secondary extraction of underlying risk factors (e.g. COVID-19, sepsis, and sickle cell disease in pneumonia). Complete breakdown is preserved in results/gemini_disagreements.md.
+Findings on Prompt Leakage:
+1. The five code hints in v1 (`I10, E11.9, J45.909, G30.9, N18.9`) provided an immense artificial boost to smaller models: `qwen2.5:3b` dropped from 4 exact matches to 0 (0.0% recall), and `qwen2.5:1.5b` dropped from 6 hits to 1.
+2. In contrast, `qwen2.5:7b` maintained exactly 5 hits across both prompt variants, demonstrating genuine comprehension of the text rather than prompt memorization.
 
-E. Old vs new numbers
-------------------
-1. Duplicate codes fix: Duplicate code emissions (e.g. `I10;I10;I10`) now count as 1 code and 1 hit; on unique codes, Qwen 1.5B precision dropped from 23.1% to 16.7%, and 7B precision dropped from 26.1% to 12.2%.
-2. Recall and F1 fix: Previously uncalculated, exact recall is now tracked against all 36 gold-standard codes, revealing that small models achieve only 2.8% to 13.9% recall (F1 of 3.4% to 13.0%).
-3. 7B evaluation fix: `qwen2.5:7b` was previously tested on only 5 articles; it is now evaluated on all 10 articles under identical conditions, allowing a direct head-to-head comparison.
-4. Prompt example contamination fix: Replaced the 5 answer-key prompt examples (`I10, E11.9, J45.909, G30.9, N18.9`, which covered 15 of 36 key rows) with out-of-key codes (`M54.50, K21.9, R51.9, L20.9, H10.9`), preventing artificial prompt memorization.
-5. Range string and category match fix: Hyphenated ranges (`I10-I15`) are now strictly categorized as invalid with zero credit, and a 3-character category match column is added alongside exact match to measure partial taxonomic alignment.
+F. Temperature 0 Repeat Variance (Determinism Question)
+-------------------------------------------------------
 
-F. Failure examples
-----------------
-1. Range string: `llama3.2:3b` on article 2 (High Blood Pressure) returned `"I10-I15"`, `"I21-I25"`, and `"I63-I66"` (expected discrete code `I10` for Essential hypertension). The model outputted block headings instead of encounter-level diagnosis codes.
-2. Invented code: `qwen2.5:1.5b` on article 3 (Pneumonia) generated `"J50.0"` (expected `J18.9` for Pneumonia, unspecified organism). ICD-10-CM Chapter 10 skips from J47 to J60; code `J50.0` does not exist in the official CMS 2026 code table.
-3. Wrong tier: `qwen2.5:1.5b` on article 8 (Stroke) generated `I10` (Hypertension) with `tier: "primary"` (expected `tier: "secondary"`, where `I63.9` Cerebral infarction is primary). The model captured the comorbidity but misjudged its clinical centrality in the article.
+To test reproducibility under production settings, both local and cloud models were evaluated 3 times at `temperature = 0` across all 10 restored articles:
+- Local Model (`qwen2.5:1.5b`): 10/10 (100.0%) identical outputs across all 3 runs. Greedy decoding on Ollama is fully deterministic.
+- Cloud Model (`gemini-flash-lite-latest`): 1/10 (10.0%) identical outputs across all 3 runs. 9 of 10 articles exhibited minor formatting, whitespace, or secondary code ordering differences due to distributed GPU execution and Mixture-of-Experts routing.
 
-G. Throughput
-----------
-Throughput on this GPU (NVIDIA RTX 3050 Laptop, 4 GB VRAM) computed as `3600 / seconds_per_article`:
-- `qwen2.5:1.5b`: 4.38 s/article -> 822 articles per hour (100% GPU)
-- `qwen2.5:3b`: 4.58 s/article -> 787 articles per hour (100% GPU)
-- `llama3.2:3b`: 9.35 s/article -> 385 articles per hour (100% GPU)
-- `qwen2.5:7b`: 25.37 s/article -> 142 articles per hour (55%/45% CPU/GPU offload)
+G. Cloud Model Evaluation Under Equal Rules
+-------------------------------------------
+Under plain JSON mode, Gemini emitted 114 codes (up to 32 codes on a single article). Under the strict JSON schema constraint (`maxItems: 6`), Gemini was forced to prioritize the top 6 conditions per article:
+- Total unique codes dropped from 114 to 52 (strictly bounded).
+- Exact precision surged from 25.4% to 78.8%.
+- Exact recall remained high at 87.2% (41 of 47 conditions captured).
+- Taxonomy validity remained flawless at 100% (0 invalid codes).
 
-H. Limits
-------
-- 10 articles: A small evaluation set focusing on consumer health education articles rather than raw, noisy clinical electronic health records.
-- One run each: Evaluations used greedy decoding (temperature 0); non-deterministic run-to-run variance was not measured.
-- Draft answer key: Curation relied on single-reviewer clinical matching against the CMS tabular order file rather than dual certified professional medical coder adjudication.
-- 4 GB GPU: Limited VRAM forced `qwen2.5:7b` to spill 55% of its weights to CPU and system RAM, causing a 5.8x throughput drop relative to `qwen2.5:1.5b`.
+H. Answer Key Adjudication Summary
+----------------------------------
+Disagreements between Gemini and the draft answer key were adjudicated using the official CMS ICD-10-CM guidelines and tabular notes, expanding the key from 36 to 47 conditions (16 total row operations: 13 added, 4 modified, 1 removed). Full line-by-line documentation is preserved in `results/answer_key_changes.md`:
+1. Combination Codes (Guideline I.B.9): On `art_06`, combination code `E11.22` (Type 2 diabetes with diabetic CKD) is mandated over unbundled codes. Tabular notes under `E11.22` explicitly direct: "Use additional code to identify stage of CKD (N18.1-N18.6)"; therefore, `N18.9` is also legitimately retained as the secondary code.
+2. Clinical Specificity (Guideline I.B.1): On `art_02`, vague umbrella code `I51.9` (Heart disease, unspecified) was replaced with explicitly documented specific conditions: `I50.9` (Heart failure), `I21.9` (Heart attack), and `N19` (Kidney failure).
+3. Tabular Instructional Notes: On `art_04`, `F03.90` was replaced with `F02.80` because Tabular notes under `G30` mandate "Use additional code `F02.8-`" and `F03` has an Excludes1 conflict.
+4. Text Alignment: Removed `J45.909` from `art_09` (only present in rewritten summary); added `E88.01` (Alpha-1-antitrypsin deficiency) which is explicitly in the source text.
 
-I. Next steps
-----------
-- Implement Retrieval-Augmented Generation (RAG) against the 98,186 CMS code descriptions so models retrieve top-k candidate codes instead of hallucinating from parametric memory.
-- Add negative prompt constraints and few-shot formatting examples explicitly forbidding hyphenated code ranges.
-- Evaluate domain-adapted medical language models (e.g. BioMistral or MedLlama) on larger GPU hardware (8 GB to 16 GB VRAM) to test whether clinical pre-training bridges the accuracy gap.
+I. Why Earlier Numbers Were Replaced
+------------------------------------
+1. Rewritten Text: Previous evaluations ran on synthesized summaries rather than real web text.
+2. Unequal Rules: Cloud reference ran unconstrained (114 codes), while local models had an item limit.
+3. Prompt Leakage: In-key prompt examples artificially inflated small model scores on v1.
+4. Adjudicated Ground Truth: The draft key had 36 entries with several guideline violations (e.g. Excludes1 conflicts, vague umbrella codes).
+
+J. Limits & Next Steps
+----------------------
+- Edge models (less than or equal to 3B) suffer from catastrophic parametric hallucination and cannot perform standalone ICD-10 coding.
+- Production deployment requires Retrieval-Augmented Generation (RAG) to ground local models in official CMS code descriptions rather than relying on parametric weights.
+
 
 

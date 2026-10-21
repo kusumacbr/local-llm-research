@@ -1,0 +1,43 @@
+Chronic Obstructive Pulmonary Disease (COPD)
+=============================================
+
+What is COPD?
+-------------
+Chronic obstructive pulmonary disease (COPD) is a progressive inflammatory lung disease that causes obstructed airflow from the lungs. COPD develops gradually over many years and makes breathing increasingly difficult. It is a leading cause of disability and death worldwide.
+
+Main conditions composing COPD
+------------------------------
+COPD primarily comprises two interrelated conditions:
+- Emphysema: The walls between the tiny air sacs (alveoli) in the lungs are damaged and destroyed. As a result, the air sacs lose their natural elasticity, become enlarged, and trap air inside, reducing the surface area available for oxygen and carbon dioxide exchange.
+- Chronic bronchitis: The lining of the bronchial airways is constantly irritated and inflamed. This chronic inflammation causes the airway lining to swell and produce excessive thick mucus, leading to a persistent productive cough.
+
+Many individuals with COPD also experience asthma overlap, where reversible airway hyperresponsiveness coexists with chronic airflow limitation.
+
+Causes and Risk Factors
+-----------------------
+- Cigarette smoking: The primary cause of COPD, responsible for up to 85% to 90% of cases. Long-term pipe, cigar, and secondhand smoke exposure also increase risk.
+- Environmental exposures: Workplace dusts, chemical fumes, and indoor or outdoor air pollution.
+- Genetic factors: Alpha-1 antitrypsin deficiency (AATD), an inherited disorder causing severe early-onset emphysema even in non-smokers due to lack of a protective lung enzyme.
+- Childhood respiratory history: Severe childhood lung infections or poorly controlled asthma.
+
+Symptoms of COPD
+----------------
+Symptoms often do not appear until significant lung tissue damage has occurred:
+- Chronic cough (often referred to as smoker's cough) that produces clear, white, yellow, or greenish mucus
+- Progressive shortness of breath (dyspnea), especially during physical exertion
+- Wheezing and chest tightness
+- Frequent respiratory infections (like acute bronchitis and pneumonia)
+- Fatigue and lack of energy
+- In advanced stages: swelling in ankles, feet, or legs (cor pulmonale or right-sided heart failure), unintended weight loss, and cyanosis (bluish tint to lips and fingernails).
+
+Diagnosis and Treatment
+-----------------------
+Diagnosis is confirmed through spirometry, a simple pulmonary function test that measures how much air you can inhale and exhale and how quickly you blow air out (FEV1 and FVC). Other diagnostic tools include chest X-rays, CT scans, and arterial blood gas analysis.
+
+While COPD has no cure, treatments relieve symptoms, improve exercise tolerance, and prevent acute exacerbations:
+- Smoking cessation: The most critical intervention to halt rapid disease progression.
+- Bronchodilators: Inhaled medications that relax bronchial smooth muscles (short-acting for rescue relief and long-acting for maintenance).
+- Inhaled corticosteroids: Reduce airway inflammation in patients with frequent flare-ups.
+- Pulmonary rehabilitation: A supervised program of exercise training, breathing techniques, and nutritional counseling.
+- Supplemental oxygen therapy: For patients with severe chronic hypoxemia.
+- Vaccines: Annual influenza, pneumococcal, and COVID-19 immunizations to prevent life-threatening pulmonary infections.

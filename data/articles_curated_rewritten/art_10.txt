@@ -1,0 +1,43 @@
+Heart Failure
+=============
+
+What is heart failure?
+----------------------
+Heart failure (congestive heart failure) is a chronic, progressive condition in which the heart muscle is unable to pump enough blood to meet the body's requirements for oxygen and nutrients. Heart failure does not mean that the heart has stopped beating; rather, the heart's pumping chambers have either become too weak or too stiff to fill and circulate blood efficiently.
+
+Types of heart failure
+----------------------
+Heart failure can affect the left side, the right side, or both sides of the heart:
+- Left-sided heart failure: The most common form. It includes heart failure with reduced ejection fraction (HFrEF or systolic failure), where the left ventricle cannot contract forcefully enough, and heart failure with preserved ejection fraction (HFpEF or diastolic failure), where the ventricle cannot relax and fill with blood properly.
+- Right-sided heart failure: The right ventricle is too weak to pump deoxygenated blood to the lungs. This most frequently occurs as a result of left-sided heart failure causing fluid backup and pulmonary hypertension.
+
+Causes and Risk Factors
+-----------------------
+Heart failure typically develops over time secondary to underlying cardiovascular conditions:
+- Coronary artery disease and heart attack (myocardial infarction): The most common underlying cause. Narrowed arteries deprive heart muscle of blood, and past heart attacks leave scarred, non-contracting tissue.
+- High blood pressure (hypertension): Forces the heart to work harder, causing the ventricular muscle to thicken and eventually stiffen or weaken.
+- Cardiomyopathy: Disease of the heart muscle caused by genetic mutations, infections, alcohol misuse, or toxic drug exposures.
+- Heart valve disease: Leaking or narrowed valves force the chambers to work overtime.
+- Cardiac arrhythmias: Chronic irregular heart rhythms, especially atrial fibrillation.
+- Congenital heart defects: Structural heart malformations present from birth.
+- Chronic systemic conditions: Type 2 diabetes, obesity, chronic kidney disease, severe lung diseases (such as COPD), severe anemia, and thyroid disease.
+
+Symptoms of heart failure
+-------------------------
+Common symptoms arise from fluid congestion and reduced organ perfusion:
+- Shortness of breath (dyspnea), during exertion, at rest, or when lying flat in bed (orthopnea)
+- Persistent coughing or wheezing with white or pink blood-tinged mucus
+- Fluid retention (edema) causing swelling in the legs, ankles, feet, or abdomen (ascites)
+- Sudden weight gain from fluid accumulation
+- Chronic fatigue and overall physical weakness
+- Rapid or irregular heartbeat (palpitations)
+- Decreased appetite and nausea
+
+Diagnosis and Treatment
+-----------------------
+Doctors diagnose heart failure using physical exams (checking for leg swelling and crackles in lungs), blood tests (B-type natriuretic peptide or BNP/NT-proBNP), electrocardiograms (ECG), chest X-rays, and echocardiograms (ultrasound to calculate ejection fraction).
+
+Treatment focuses on slowing progression, relieving symptoms, and improving survival:
+- Medications: ACE inhibitors, angiotensin receptor-neprilysin inhibitors (ARNIs), beta-blockers, aldosterone receptor antagonists, SGLT2 inhibitors, and diuretics to eliminate excess fluid.
+- Implantable devices: Pacemakers, cardiac resynchronization therapy (CRT), and implantable cardioverter-defibrillators (ICDs).
+- Lifestyle interventions: Limiting dietary sodium, monitoring daily weight for fluid gain, restricting fluids when indicated, and participating in cardiac rehabilitation.

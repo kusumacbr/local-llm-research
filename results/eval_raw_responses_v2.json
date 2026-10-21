@@ -1,0 +1,250 @@
+{
+  "qwen2.5:1.5b": {
+    "art_01": {
+      "raw_response": "{\n  \"conditions\": [\n    {\n      \"name\": \"Asthma\",\n      \"icd10cm_code\": \"J44.0\",\n      \"tier\": \"primary\"\n    }\n  ]\n}",
+      "prompt_eval_count": 1342,
+      "eval_count": 46,
+      "wall_time_s": 6.738176345825195
+    },
+    "art_02": {
+      "raw_response": "{\n  \"conditions\": [\n    {\n      \"name\": \"High Blood Pressure\",\n      \"icd10cm_code\": \"I10\",\n      \"tier\": \"primary\"\n    },\n    {\n      \"name\": \"Elevated Blood Pressure\",\n      \"icd10cm_code\": \"I10\",\n      \"tier\": \"secondary\"\n    },\n    {\n      \"name\": \"High Blood Pressure Stage 1\",\n      \"icd10cm_code\": \"I10\",\n      \"tier\": \"secondary\"\n    },\n    {\n      \"name\": \"High Blood Pressure Stage 2\",\n      \"icd10cm_code\": \"I10\",\n      \"tier\": \"secondary\"\n    },\n    {\n      \"name\": \"Hypertensive Crisis\",\n      \"icd10cm_code\": \"I10\",\n      \"tier\": \"tertiary\"\n    }\n  ]\n}",
+      "prompt_eval_count": 933,
+      "eval_count": 192,
+      "wall_time_s": 3.997580051422119
+    },
+    "art_03": {
+      "raw_response": "{\n  \"conditions\": [\n    {\n      \"name\": \"Pneumonia\",\n      \"icd10cm_code\": \"J50.0\",\n      \"tier\": \"primary\"\n    }\n  ]\n}",
+      "prompt_eval_count": 1621,
+      "eval_count": 47,
+      "wall_time_s": 2.888551950454712
+    },
+    "art_04": {
+      "raw_response": "{\n  \"conditions\": [\n    {\n      \"name\": \"Alzheimer's disease\",\n      \"icd10cm_code\": \"G35.0\",\n      \"tier\": \"primary\"\n    },\n    {\n      \"name\": \"Dementia\",\n      \"icd10cm_code\": \"G35.0\",\n      \"tier\": \"primary\"\n    },\n    {\n      \"name\": \"Memory loss\",\n      \"icd10cm_code\": \"G35.0\",\n      \"tier\": \"secondary\"\n    },\n    {\n      \"name\": \"Mild cognitive impairment (MCI)\",\n      \"icd10cm_code\": \"G35.0\",\n      \"tier\": \"secondary\"\n    },\n    {\n      \"name\": \"Normal aging\",\n      \"icd10cm_code\": \"G35.0\",\n      \"tier\": \"secondary\"\n    },\n    {\n      \"name\": \"Behavioral changes\",\n      \"icd10cm_code\": \"G35.0\",\n      \"tier\": \"secondary\"\n    }\n  ]\n}",
+      "prompt_eval_count": 964,
+      "eval_count": 228,
+      "wall_time_s": 4.438041925430298
+    },
+    "art_05": {
+      "raw_response": "{\n  \"conditions\": [\n    {\n      \"name\": \"Chronic Kidney Disease (CKD)\",\n      \"icd10cm_code\": \"R51.9\",\n      \"tier\": \"primary\"\n    },\n    {\n      \"name\": \"Diabetes\",\n      \"icd10cm_code\": \"E10.0\",\n      \"tier\": \"secondary\"\n    },\n    {\n      \"name\": \"High Blood Pressure\",\n      \"icd10cm_code\": \"I10.0\",\n      \"tier\": \"secondary\"\n    },\n    {\n      \"name\": \"Heart and Blood Vessel Disease\",\n      \"icd10cm_code\": \"I20.0\",\n      \"tier\": \"secondary\"\n    },\n    {\n      \"name\": \"Family History of Kidney Disease\",\n      \"icd10cm_code\": \"R51.9\",\n      \"tier\": \"secondary\"\n    },\n    {\n      \"name\": \"African Americans\",\n      \"icd10cm_code\": \"R51.9\",\n      \"tier\": \"secondary\"\n    }\n  ]\n}",
+      "prompt_eval_count": 1637,
+      "eval_count": 236,
+      "wall_time_s": 4.774689674377441
+    },
+    "art_06": {
+      "raw_response": "{\n  \"conditions\": [\n    {\n      \"name\": \"Chronic Kidney Disease (CKD)\",\n      \"icd10cm_code\": \"R51.9\",\n      \"tier\": \"primary\"\n    },\n    {\n      \"name\": \"Diabetes\",\n      \"icd10cm_code\": \"E10.9\",\n      \"tier\": \"primary\"\n    }\n  ]\n}",
+      "prompt_eval_count": 751,
+      "eval_count": 86,
+      "wall_time_s": 3.2085676193237305
+    },
+    "art_07": {
+      "raw_response": "{\n  \"conditions\": [\n    {\n      \"name\": \"Abdominal obesity\",\n      \"icd10cm_code\": \"R51.9\",\n      \"tier\": \"primary\"\n    },\n    {\n      \"name\": \"High triglyceride level\",\n      \"icd10cm_code\": \"I10.9\",\n      \"tier\": \"primary\"\n    },\n    {\n      \"name\": \"Low HDL cholesterol level\",\n      \"icd10cm_code\": \"I20.9\",\n      \"tier\": \"primary\"\n    },\n    {\n      \"name\": \"High blood pressure\",\n      \"icd10cm_code\": \"I10.9\",\n      \"tier\": \"primary\"\n    },\n    {\n      \"name\": \"High fasting blood sugar\",\n      \"icd10cm_code\": \"I20.9\",\n      \"tier\": \"primary\"\n    }\n  ]\n}",
+      "prompt_eval_count": 1098,
+      "eval_count": 196,
+      "wall_time_s": 4.319859743118286
+    },
+    "art_08": {
+      "raw_response": "{\n  \"conditions\": [\n    {\n      \"name\": \"Stroke\",\n      \"icd10cm_code\": \"I63.0\",\n      \"tier\": \"primary\"\n    },\n    {\n      \"name\": \"Ischemic Stroke\",\n      \"icd10cm_code\": \"I63.0\",\n      \"tier\": \"primary\"\n    },\n    {\n      \"name\": \"Hemorrhagic Stroke\",\n      \"icd10cm_code\": \"I63.0\",\n      \"tier\": \"primary\"\n    },\n    {\n      \"name\": \"Transient Ischemic Attack (TIA)\",\n      \"icd10cm_code\": \"I63.0\",\n      \"tier\": \"primary\"\n    }\n  ]\n}",
+      "prompt_eval_count": 1593,
+      "eval_count": 160,
+      "wall_time_s": 4.005252361297607
+    },
+    "art_09": {
+      "raw_response": "{\n  \"conditions\": [\n    {\n      \"name\": \"Chronic Obstructive Pulmonary Disease (COPD)\",\n      \"icd10cm_code\": \"J10-J14\",\n      \"tier\": \"primary\"\n    },\n    {\n      \"name\": \"Emphysema\",\n      \"icd10cm_code\": \"J40.0\",\n      \"tier\": \"secondary\"\n    },\n    {\n      \"name\": \"Chronic Bronchitis\",\n      \"icd10cm_code\": \"J40.1\",\n      \"tier\": \"secondary\"\n    }\n  ]\n}",
+      "prompt_eval_count": 745,
+      "eval_count": 131,
+      "wall_time_s": 3.5468590259552
+    },
+    "art_10": {
+      "raw_response": "{\n  \"conditions\": [\n    {\n      \"name\": \"Heart Failure\",\n      \"icd10cm_code\": \"I20.9\",\n      \"tier\": \"primary\"\n    },\n    {\n      \"name\": \"Right-sided Heart Failure\",\n      \"icd10cm_code\": \"I20.9\",\n      \"tier\": \"primary\"\n    },\n    {\n      \"name\": \"Left-sided Heart Failure\",\n      \"icd10cm_code\": \"I20.9\",\n      \"tier\": \"primary\"\n    },\n    {\n      \"name\": \"Arrhythmia\",\n      \"icd10cm_code\": \"I20.9\",\n      \"tier\": \"secondary\"\n    },\n    {\n      \"name\": \"Cardiomyopathy\",\n      \"icd10cm_code\": \"I20.9\",\n      \"tier\": \"secondary\"\n    },\n    {\n      \"name\": \"Congenital Heart Defects\",\n      \"icd10cm_code\": \"I20.9\",\n      \"tier\": \"secondary\"\n    }\n  ]\n}",
+      "prompt_eval_count": 1658,
+      "eval_count": 232,
+      "wall_time_s": 4.717499494552612
+    }
+  },
+  "qwen2.5:3b": {
+    "art_01": {
+      "raw_response": "{\n  \"conditions\": [\n    {\n      \"name\": \"Asthma\",\n      \"icd10cm_code\": \"J45.1\",\n      \"tier\": \"primary\"\n    }\n  ]\n}",
+      "prompt_eval_count": 1342,
+      "eval_count": 46,
+      "wall_time_s": 6.953576326370239
+    },
+    "art_02": {
+      "raw_response": "{\n  \"conditions\": [\n    {\n      \"name\": \"Hypertensive Crisis\",\n      \"icd10cm_code\": \"R51.9\",\n      \"tier\": \"primary\"\n    }\n  ]\n}",
+      "prompt_eval_count": 933,
+      "eval_count": 48,
+      "wall_time_s": 3.1477017402648926
+    },
+    "art_03": {
+      "raw_response": "{\n  \"conditions\": [\n    {\n      \"name\": \"Pneumonia\",\n      \"icd10cm_code\": \"J17.9\",\n      \"tier\": \"primary\"\n    }\n  ]\n}",
+      "prompt_eval_count": 1621,
+      "eval_count": 47,
+      "wall_time_s": 3.418095827102661
+    },
+    "art_04": {
+      "raw_response": "{\n  \"conditions\": [\n    {\n      \"name\": \"Alzheimer's disease\",\n      \"icd10cm_code\": \"G30.0\",\n      \"tier\": \"primary\"\n    }\n  ]\n}",
+      "prompt_eval_count": 964,
+      "eval_count": 47,
+      "wall_time_s": 3.302833318710327
+    },
+    "art_05": {
+      "raw_response": "{\n  \"conditions\": [\n    {\n      \"name\": \"Chronic Kidney Disease (CKD)\",\n      \"icd10cm_code\": \"N17.9\",\n      \"tier\": \"primary\"\n    }\n  ]\n}",
+      "prompt_eval_count": 1637,
+      "eval_count": 51,
+      "wall_time_s": 3.688814878463745
+    },
+    "art_06": {
+      "raw_response": "{\n  \"conditions\": [\n    {\n      \"name\": \"Chronic Kidney Disease\",\n      \"icd10cm_code\": \"N17.9\",\n      \"tier\": \"primary\"\n    },\n    {\n      \"name\": \"Diabetes\",\n      \"icd10cm_code\": \"E10-E14\",\n      \"tier\": \"primary\"\n    }\n  ]\n}",
+      "prompt_eval_count": 751,
+      "eval_count": 84,
+      "wall_time_s": 3.748218536376953
+    },
+    "art_07": {
+      "raw_response": "{\n  \"conditions\": [\n    {\n      \"name\": \"Metabolic Syndrome\",\n      \"icd10cm_code\": \"E76.0\",\n      \"tier\": \"primary\"\n    }\n  ]\n}",
+      "prompt_eval_count": 1098,
+      "eval_count": 46,
+      "wall_time_s": 3.3847763538360596
+    },
+    "art_08": {
+      "raw_response": "{\n  \"conditions\": [\n    {\n      \"name\": \"Stroke\",\n      \"icd10cm_code\": \"I60\",\n      \"tier\": \"primary\"\n    },\n    {\n      \"name\": \"Ischemic stroke\",\n      \"icd10cm_code\": \"I60.0\",\n      \"tier\": \"primary\"\n    },\n    {\n      \"name\": \"Hemorrhagic stroke\",\n      \"icd10cm_code\": \"I60.1\",\n      \"tier\": \"primary\"\n    },\n    {\n      \"name\": \"Transient ischemic attack (TIA)\",\n      \"icd10cm_code\": \"R51.9\",\n      \"tier\": \"secondary\"\n    }\n  ]\n}",
+      "prompt_eval_count": 1593,
+      "eval_count": 157,
+      "wall_time_s": 5.231794834136963
+    },
+    "art_09": {
+      "raw_response": "{\n  \"conditions\": [\n    {\n      \"name\": \"Chronic Obstructive Pulmonary Disease (COPD)\",\n      \"icd10cm_code\": \"J43\",\n      \"tier\": \"primary\"\n    }\n  ]\n}",
+      "prompt_eval_count": 745,
+      "eval_count": 53,
+      "wall_time_s": 3.316822052001953
+    },
+    "art_10": {
+      "raw_response": "{\n  \"conditions\": [\n    {\n      \"name\": \"Heart Failure\",\n      \"icd10cm_code\": \"I50.0\",\n      \"tier\": \"primary\"\n    },\n    {\n      \"name\": \"Arrhythmia\",\n      \"icd10cm_code\": \"I46\",\n      \"tier\": \"secondary\"\n    },\n    {\n      \"name\": \"Cardiomyopathy\",\n      \"icd10cm_code\": \"I42\",\n      \"tier\": \"secondary\"\n    },\n    {\n      \"name\": \"Congenital Heart Defects\",\n      \"icd10cm_code\": \"I44\",\n      \"tier\": \"secondary\"\n    },\n    {\n      \"name\": \"Coronary Artery Disease\",\n      \"icd10cm_code\": \"I25\",\n      \"tier\": \"secondary\"\n    },\n    {\n      \"name\": \"Endocarditis\",\n      \"icd10cm_code\": \"I24.9\",\n      \"tier\": \"secondary\"\n    }\n  ]\n}",
+      "prompt_eval_count": 1658,
+      "eval_count": 225,
+      "wall_time_s": 6.315790176391602
+    }
+  },
+  "llama3.2:3b": {
+    "art_01": {
+      "raw_response": "{\n  \"conditions\": [\n    {\n      \"name\": \"Asthma\",\n      \"icd10cm_code\": \"J45.0\",\n      \"tier\": \"primary\"\n    }\n  ]\n}",
+      "prompt_eval_count": 1328,
+      "eval_count": 44,
+      "wall_time_s": 9.596901178359985
+    },
+    "art_02": {
+      "raw_response": "{\n  \"conditions\": [\n    {\n      \"name\": \"High Blood Pressure\",\n      \"icd10cm_code\": \"I10-I15\",\n      \"tier\": \"primary\"\n    },\n    {\n      \"name\": \"Hypertensive Crisis\",\n      \"icd10cm_code\": \"O16-O17\",\n      \"tier\": \"primary\"\n    },\n    {\n      \"name\": \"Primary High Blood Pressure\",\n      \"icd10cm_code\": \"I10-I15\",\n      \"tier\": \"primary\"\n    },\n    {\n      \"name\": \"Secondary High Blood Pressure\",\n      \"icd10cm_code\": \"I10-I15, K70-K74, L60-L64, O16-O17, R33-R35\",\n      \"tier\": \"secondary\"\n    }\n  ]\n}",
+      "prompt_eval_count": 892,
+      "eval_count": 170,
+      "wall_time_s": 5.918315887451172
+    },
+    "art_03": {
+      "raw_response": "{\n  \"conditions\": [\n    {\n      \"name\": \"Pneumonia\",\n      \"icd10cm_code\": \"J20-J47\",\n      \"tier\": \"primary\"\n    },\n    {\n      \"name\": \"Streptococcus pneumoniae pneumonia\",\n      \"icd10cm_code\": \"J20.0\",\n      \"tier\": \"secondary\"\n    },\n    {\n      \"name\": \"Legionella pneumophila pneumonia\",\n      \"icd10cm_code\": \"J41.0\",\n      \"tier\": \"secondary\"\n    },\n    {\n      \"name\": \"Mycoplasma pneumoniae pneumonia\",\n      \"icd10cm_code\": \"J41.1\",\n      \"tier\": \"secondary\"\n    },\n    {\n      \"name\": \"Chlamydia pneumoniae pneumonia\",\n      \"icd10cm_code\": \"J41.2\",\n      \"tier\": \"secondary\"\n    },\n    {\n      \"name\": \"Haemophilus influenzae type b (Hib) pneumonia\",\n      \"icd10cm_code\": \"J41.3\",\n      \"tier\": \"secondary\"\n    }\n  ]\n}",
+      "prompt_eval_count": 1600,
+      "eval_count": 241,
+      "wall_time_s": 8.456775665283203
+    },
+    "art_04": {
+      "raw_response": "{\n  \"conditions\": [\n    {\n      \"name\": \"Alzheimer's Disease\",\n      \"icd10cm_code\": \"G30.9\",\n      \"tier\": \"primary\"\n    },\n    {\n      \"name\": \"Mild Cognitive Impairment (MCI)\",\n      \"icd10cm_code\": \"F43.9\",\n      \"tier\": \"secondary\"\n    }\n  ]\n}",
+      "prompt_eval_count": 948,
+      "eval_count": 85,
+      "wall_time_s": 4.4318625926971436
+    },
+    "art_05": {
+      "raw_response": "{\n  \"conditions\": [\n    {\n      \"name\": \"Chronic Kidney Disease\",\n      \"icd10cm_code\": \"N18.9, N18.0- N18.9\",\n      \"tier\": \"primary\"\n    },\n    {\n      \"name\": \"Diabetes\",\n      \"icd10cm_code\": \"E10-E14, E88.0- E88.9\",\n      \"tier\": \"secondary\"\n    },\n    {\n      \"name\": \"High Blood Pressure\",\n      \"icd10cm_code\": \"I10-I15, I20-I25\",\n      \"tier\": \"secondary\"\n    },\n    {\n      \"name\": \"Heart and Blood Vessel Disease\",\n      \"icd10cm_code\": \"I50-I52, I60-I64\",\n      \"tier\": \"secondary\"\n    },\n    {\n      \"name\": \"Kidney Failure\",\n      \"icd10cm_code\": \"N18.0- N18.9, N19.0- N19.9\",\n      \"tier\": \"tertiary\"\n    },\n    {\n      \"name\": \"Acute Kidney Injury\",\n      \"icd10cm_code\": \"N18.9, N18.0- N18.9\",\n      \"tier\": \"tertiary\"\n    }\n  ]\n}",
+      "prompt_eval_count": 1622,
+      "eval_count": 279,
+      "wall_time_s": 9.339695453643799
+    },
+    "art_06": {
+      "raw_response": "{\n  \"conditions\": [\n    {\n      \"name\": \"Chronic Kidney Disease\",\n      \"icd10cm_code\": \"N17.9\",\n      \"tier\": \"primary\"\n    },\n    {\n      \"name\": \"Diabetes\",\n      \"icd10cm_code\": \"E10-E14\",\n      \"tier\": \"primary\"\n    },\n    {\n      \"name\": \"Prediabetes\",\n      \"icd10cm_code\": \"F72-F73\",\n      \"tier\": \"secondary\"\n    }\n  ]\n}",
+      "prompt_eval_count": 734,
+      "eval_count": 113,
+      "wall_time_s": 4.8896307945251465
+    },
+    "art_07": {
+      "raw_response": "{\n  \"conditions\": [\n    {\n      \"name\": \"Metabolic Syndrome\",\n      \"icd10cm_code\": \"E26.0\",\n      \"tier\": \"primary\"\n    },\n    {\n      \"name\": \"Abdominal Obesity\",\n      \"icd10cm_code\": \"E26.0\",\n      \"tier\": \"primary\"\n    },\n    {\n      \"name\": \"Insulin Resistance\",\n      \"icd10cm_code\": \"E25.0\",\n      \"tier\": \"primary\"\n    },\n    {\n      \"name\": \"High Triglyceride Level\",\n      \"icd10cm_code\": \"E77.0\",\n      \"tier\": \"primary\"\n    },\n    {\n      \"name\": \"Low HDL Cholesterol Level\",\n      \"icd10cm_code\": \"E78.0\",\n      \"tier\": \"primary\"\n    },\n    {\n      \"name\": \"High Blood Pressure\",\n      \"icd10cm_code\": \"I10.0\",\n      \"tier\": \"primary\"\n    }\n  ]\n}",
+      "prompt_eval_count": 1073,
+      "eval_count": 221,
+      "wall_time_s": 7.395981311798096
+    },
+    "art_08": {
+      "raw_response": "{\n  \"conditions\": [\n    {\n      \"name\": \"Ischemic Stroke\",\n      \"icd10cm_code\": \"I63.0-I63.9\",\n      \"tier\": \"primary\"\n    },\n    {\n      \"name\": \"Hemorrhagic Stroke\",\n      \"icd10cm_code\": \"I60.0-I60.9\",\n      \"tier\": \"primary\"\n    },\n    {\n      \"name\": \"Transient Ischemic Attack (TIA)\",\n      \"icd10cm_code\": \"I64.0-I64.9\",\n      \"tier\": \"tertiary\"\n    },\n    {\n      \"name\": \"Atrial Fibrillation\",\n      \"icd10cm_code\": \"I48.0-I48.9\",\n      \"tier\": \"tertiary\"\n    },\n    {\n      \"name\": \"Carotid Artery Disease\",\n      \"icd10cm_code\": \"I70.0-I70.9\",\n      \"tier\": \"tertiary\"\n    },\n    {\n      \"name\": \"Arteriovenous Malformation (AVM)\",\n      \"icd10cm_code\": \"I80.0-I80.9\",\n      \"tier\": \"tertiary\"\n    }\n  ]\n}",
+      "prompt_eval_count": 1572,
+      "eval_count": 266,
+      "wall_time_s": 8.970277309417725
+    },
+    "art_09": {
+      "raw_response": "{\n  \"conditions\": [\n    {\n      \"name\": \"Chronic Obstructive Pulmonary Disease (COPD)\",\n      \"icd10cm_code\": \"J40-J47\",\n      \"tier\": \"primary\"\n    },\n    {\n      \"name\": \"Emphysema\",\n      \"icd10cm_code\": \"J41.0-J41.9\",\n      \"tier\": \"secondary\"\n    },\n    {\n      \"name\": \"Chronic Bronchitis\",\n      \"icd10cm_code\": \"J42.0-J42.9\",\n      \"tier\": \"secondary\"\n    },\n    {\n      \"name\": \"Alpha-1 Antitrypsin Deficiency\",\n      \"icd10cm_code\": \"B11.9\",\n      \"tier\": \"tertiary\"\n    }\n  ]\n}",
+      "prompt_eval_count": 729,
+      "eval_count": 175,
+      "wall_time_s": 6.112863302230835
+    },
+    "art_10": {
+      "raw_response": "{\n  \"conditions\": [\n    {\n      \"name\": \"Heart Failure\",\n      \"icd10cm_code\": \"I50-I51, J40-J44\",\n      \"tier\": \"primary\"\n    },\n    {\n      \"name\": \"Arrhythmia\",\n      \"icd10cm_code\": \"I48-I49, J40-J44\",\n      \"tier\": \"secondary\"\n    },\n    {\n      \"name\": \"Cardiomyopathy\",\n      \"icd10cm_code\": \"I50-I51, J40-J44\",\n      \"tier\": \"secondary\"\n    },\n    {\n      \"name\": \"Congenital Heart Defects\",\n      \"icd10cm_code\": \"Q07-Q08, Q09-Q10\",\n      \"tier\": \"tertiary\"\n    },\n    {\n      \"name\": \"Coronary Artery Disease\",\n      \"icd10cm_code\": \"I21-I25, J40-J44\",\n      \"tier\": \"secondary\"\n    },\n    {\n      \"name\": \"Endocarditis\",\n      \"icd10cm_code\": \"I33-I36, J40-J44\",\n      \"tier\": \"secondary\"\n    }\n  ]\n}",
+      "prompt_eval_count": 1642,
+      "eval_count": 252,
+      "wall_time_s": 8.705907106399536
+    }
+  },
+  "qwen2.5:7b": {
+    "art_01": {
+      "raw_response": "{\n  \"conditions\": [\n    {\n      \"name\": \"Asthma\",\n      \"icd10cm_code\": \"J45.9\",\n      \"tier\": \"primary\"\n    }\n  ]\n}",
+      "prompt_eval_count": 1342,
+      "eval_count": 46,
+      "wall_time_s": 15.63753604888916
+    },
+    "art_02": {
+      "raw_response": "{\n  \"conditions\": [\n    {\n      \"name\": \"Essential (Primary) Hypertension\",\n      \"icd10cm_code\": \"I10\",\n      \"tier\": \"primary\"\n    },\n    {\n      \"name\": \"Secondary Hypertension\",\n      \"icd10cm_code\": \"I10\",\n      \"tier\": \"secondary\"\n    },\n    {\n      \"name\": \"Hypertensive Crisis\",\n      \"icd10cm_code\": \"I10\",\n      \"tier\": \"secondary\"\n    }\n  ]\n}",
+      "prompt_eval_count": 933,
+      "eval_count": 120,
+      "wall_time_s": 15.416867733001709
+    },
+    "art_03": {
+      "raw_response": "{\n  \"conditions\": [\n    {\n      \"name\": \"Pneumonia\",\n      \"icd10cm_code\": \"J18.0\",\n      \"tier\": \"primary\"\n    },\n    {\n      \"name\": \"Bacterial Pneumonia\",\n      \"icd10cm_code\": \"J15.0\",\n      \"tier\": \"secondary\"\n    },\n    {\n      \"name\": \"Viral Pneumonia\",\n      \"icd10cm_code\": \"J12.-\",\n      \"tier\": \"secondary\"\n    },\n    {\n      \"name\": \"Fungal Pneumonia\",\n      \"icd10cm_code\": \"B26.-\",\n      \"tier\": \"secondary\"\n    },\n    {\n      \"name\": \"Pneumocystis Pneumonia (PCP)\",\n      \"icd10cm_code\": \"B26.1\",\n      \"tier\": \"secondary\"\n    },\n    {\n      \"name\": \"Valley Fever (Coccidioidomycosis)\",\n      \"icd10cm_code\": \"B26.2\",\n      \"tier\": \"secondary\"\n    }\n  ]\n}",
+      "prompt_eval_count": 1621,
+      "eval_count": 252,
+      "wall_time_s": 33.394075870513916
+    },
+    "art_04": {
+      "raw_response": "{\n  \"conditions\": [\n    {\n      \"name\": \"Alzheimer's Disease\",\n      \"icd10cm_code\": \"F00.0\",\n      \"tier\": \"primary\"\n    }\n  ]\n}",
+      "prompt_eval_count": 964,
+      "eval_count": 47,
+      "wall_time_s": 8.321457862854004
+    },
+    "art_05": {
+      "raw_response": "{\n  \"conditions\": [\n    {\n      \"name\": \"Chronic Kidney Disease\",\n      \"icd10cm_code\": \"N18.9\",\n      \"tier\": \"primary\"\n    }\n  ]\n}",
+      "prompt_eval_count": 1637,
+      "eval_count": 48,
+      "wall_time_s": 9.107079982757568
+    },
+    "art_06": {
+      "raw_response": "{\n  \"conditions\": [\n    {\n      \"name\": \"Chronic Kidney Disease\",\n      \"icd10cm_code\": \"N18.9\",\n      \"tier\": \"primary\"\n    },\n    {\n      \"name\": \"Diabetes\",\n      \"icd10cm_code\": \"E10-E14\",\n      \"tier\": \"primary\"\n    },\n    {\n      \"name\": \"Prediabetes\",\n      \"icd10cm_code\": \"G85.9\",\n      \"tier\": \"secondary\"\n    }\n  ]\n}",
+      "prompt_eval_count": 751,
+      "eval_count": 120,
+      "wall_time_s": 15.598673820495605
+    },
+    "art_07": {
+      "raw_response": "{\n  \"conditions\": [\n    {\n      \"name\": \"Metabolic Syndrome\",\n      \"icd10cm_code\": \"E78.2\",\n      \"tier\": \"primary\"\n    }\n  ]\n}",
+      "prompt_eval_count": 1098,
+      "eval_count": 46,
+      "wall_time_s": 7.8730432987213135
+    },
+    "art_08": {
+      "raw_response": "{\n  \"conditions\": [\n    {\n      \"name\": \"Stroke\",\n      \"icd10cm_code\": \"I61.0\",\n      \"tier\": \"primary\"\n    },\n    {\n      \"name\": \"Ischemic Stroke\",\n      \"icd10cm_code\": \"I63.0\",\n      \"tier\": \"secondary\"\n    },\n    {\n      \"name\": \"Hemorrhagic Stroke\",\n      \"icd10cm_code\": \"I61.1\",\n      \"tier\": \"secondary\"\n    },\n    {\n      \"name\": \"Transient Ischemic Attack (TIA)\",\n      \"icd10cm_code\": \"I67.4\",\n      \"tier\": \"secondary\"\n    },\n    {\n      \"name\": \"High Blood Pressure\",\n      \"icd10cm_code\": \"I10\",\n      \"tier\": \"secondary\"\n    },\n    {\n      \"name\": \"Diabetes\",\n      \"icd10cm_code\": \"E10-E14\",\n      \"tier\": \"secondary\"\n    }\n  ]\n}",
+      "prompt_eval_count": 1593,
+      "eval_count": 230,
+      "wall_time_s": 30.4686496257782
+    },
+    "art_09": {
+      "raw_response": "{\n  \"conditions\": [\n    {\n      \"name\": \"Chronic Obstructive Pulmonary Disease (COPD)\",\n      \"icd10cm_code\": \"J44.9\",\n      \"tier\": \"primary\"\n    },\n    {\n      \"name\": \"Emphysema\",\n      \"icd10cm_code\": \"J44.00\",\n      \"tier\": \"secondary\"\n    },\n    {\n      \"name\": \"Chronic Bronchitis\",\n      \"icd10cm_code\": \"J44.10\",\n      \"tier\": \"secondary\"\n    },\n    {\n      \"name\": \"Alpha-1 Antitrypsin Deficiency\",\n      \"icd10cm_code\": \"D85.9\",\n      \"tier\": \"tertiary\"\n    }\n  ]\n}",
+      "prompt_eval_count": 745,
+      "eval_count": 177,
+      "wall_time_s": 21.84108543395996
+    },
+    "art_10": {
+      "raw_response": "{\n  \"conditions\": [\n    {\n      \"name\": \"Heart Failure\",\n      \"icd10cm_code\": \"I50.1\",\n      \"tier\": \"primary\"\n    },\n    {\n      \"name\": \"Arrhythmia\",\n      \"icd10cm_code\": \"I47\",\n      \"tier\": \"secondary\"\n    },\n    {\n      \"name\": \"Cardiomyopathy\",\n      \"icd10cm_code\": \"I42\",\n      \"tier\": \"secondary\"\n    },\n    {\n      \"name\": \"Congenital Heart Defects\",\n      \"icd10cm_code\": \"Q20-Q22\",\n      \"tier\": \"secondary\"\n    },\n    {\n      \"name\": \"Coronary Artery Disease\",\n      \"icd10cm_code\": \"I20-I25\",\n      \"tier\": \"secondary\"\n    },\n    {\n      \"name\": \"Endocarditis\",\n      \"icd10cm_code\": \"I46\",\n      \"tier\": \"secondary\"\n    }\n  ]\n}",
+      "prompt_eval_count": 1658,
+      "eval_count": 229,
+      "wall_time_s": 30.83389973640442
+    }
+  }
+}
