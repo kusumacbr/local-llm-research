@@ -3,11 +3,18 @@ Analyze the following health article and extract the medical conditions discusse
 
 For each condition, specify:
 - "name": The clinical name of the medical condition.
-- "icd10cm_code": The official ICD-10-CM diagnosis code (for example: M54.50, K21.9, R51.9, L20.9, H10.9).
+- "icd10cm_code": The official ICD-10-CM diagnosis code (format: letter followed by 2 digits, a dot, and up to 4 characters; e.g. XYZ.12 - do not copy dummy example codes).
 - "tier": The importance tier according to the article's coverage:
   - "primary": the article is mostly about it.
   - "secondary": a real part of it.
   - "tertiary": a short mention.
+
+STRICT RULES:
+1. NO CODE RANGES: Never return code ranges (such as I10-I15, J40-J47, or E08-E13). Every condition must have exactly one discrete, specific ICD-10-CM code.
+2. NO PLACEHOLDER COPYING: Never output dummy example codes like XYZ.12 or ABC.00. Output only legitimate, real-world ICD-10-CM codes.
+3. SINGLE CODE PER OBJECT: Do not combine multiple codes using slashes, commas, or "and" (e.g. do not write "E11.9 / I10"). Provide a separate object for each distinct condition.
+4. GROUNDED IN TEXT ONLY: Extract only medical conditions that are explicitly mentioned or diagnosed in the provided article text. Do not hallucinate or assume unmentioned conditions.
+5. STRICT JSON ONLY: Return ONLY a valid JSON object matching the schema below, without markdown code blocks, explanations, or preamble.
 
 Return ONLY a JSON object strictly adhering to the schema:
 {

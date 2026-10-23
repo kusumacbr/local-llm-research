@@ -1,6 +1,6 @@
 model,article_id,title,condition_type,valid_json,num_codes_returned,codes_returned,num_invalid_codes,invalid_codes,num_exact_matches,exact_matches,num_category_matches,category_matches,num_chapter_matches,chapter_matches,num_tier_matches,tier_matches,time_taken_s,prompt_eval_count,eval_count,error_notes
 qwen2.5:1.5b,art_01,Asthma,single,yes,1,J44.0,0,,0,,0,,1,J44.0,0,,6.74,1342,46,
-qwen2.5:1.5b,art_02,High Blood Pressure,single,yes,1,I10,0,,1,I10,1,I10,1,I10,1,I10,4.0,933,192,
+qwen2.5:1.5b,art_02,High Blood Pressure,single,yes,1,I10,0,,1,I10,1,I10,1,I10,1,I10,4,933,192,
 qwen2.5:1.5b,art_03,Pneumonia,single,yes,1,J50.0,1,J50.0,0,,0,,1,J50.0,0,,2.89,1621,47,
 qwen2.5:1.5b,art_04,Alzheimer's Disease,single,yes,1,G35.0,1,G35.0,0,,0,,1,G35.0,0,,4.44,964,228,
 qwen2.5:1.5b,art_05,What is Chronic Kidney Disease?,single,yes,4,R51.9;E10.0;I10.0;I20.0,2,E10.0;I10.0,0,,1,I10.0,3,E10.0;I10.0;I20.0,0,,4.77,1637,236,

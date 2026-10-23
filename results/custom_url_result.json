@@ -1,0 +1,40 @@
+{
+  "url": "https://medlineplus.gov/heartfailure.html",
+  "title": "Heart Failure | Congestive Heart Failure | CHF | MedlinePlus",
+  "model": "qwen2.5:7b",
+  "word_count": 1800,
+  "extracted_json": {
+    "conditions": [
+      {
+        "name": "Heart Failure",
+        "icd10cm_code": "I51",
+        "tier": "primary"
+      },
+      {
+        "name": "Congestive Heart Failure",
+        "icd10cm_code": "I51",
+        "tier": "primary"
+      },
+      {
+        "name": "Arrhythmia",
+        "icd10cm_code": "I47",
+        "tier": "secondary"
+      },
+      {
+        "name": "Cardiomyopathy",
+        "icd10cm_code": "I41",
+        "tier": "secondary"
+      },
+      {
+        "name": "Congenital Heart Defects",
+        "icd10cm_code": "Q20",
+        "tier": "secondary"
+      },
+      {
+        "name": "Coronary Artery Disease",
+        "icd10cm_code": "I20",
+        "tier": "secondary"
+      }
+    ]
+  }
+}
